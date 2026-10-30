@@ -147,6 +147,32 @@
   }
   footer{text-align:center;padding:36px 20px 50px;color:var(--ink-faint);font-size:11px;letter-spacing:.14em}
 
+  /* lovable extras */
+  body::before{
+    content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(38% 32% at 22% 18%, rgba(217,154,78,.16), transparent 70%),
+      radial-gradient(34% 30% at 82% 72%, rgba(201,106,90,.12), transparent 70%),
+      radial-gradient(30% 26% at 65% 30%, rgba(240,200,150,.10), transparent 70%);
+    animation:drift 20s ease-in-out infinite alternate;
+  }
+  @keyframes drift{to{transform:translate(4%,-3%) scale(1.07)}}
+  #fx{position:fixed;inset:0;z-index:1;pointer-events:none}
+  .chapter .serif.big{animation:floaty 7s ease-in-out infinite}
+  @keyframes floaty{50%{transform:translateY(-7px)}}
+  #ytWrap{position:fixed;left:-10px;top:-10px;width:2px;height:2px;overflow:hidden;opacity:0;pointer-events:none;z-index:0}
+  .art{display:block;margin:0 auto 18px;animation:artfloat 5s ease-in-out infinite;filter:drop-shadow(0 4px 14px rgba(180,100,31,.25))}
+  @keyframes artfloat{50%{transform:translateY(-6px) rotate(-2deg)}}
+  #gate .mh{position:absolute;font-size:18px;opacity:0;animation:mhfloat 5.5s ease-in-out infinite;pointer-events:none}
+  #gate .m1{left:18%;top:30%}
+  #gate .m2{left:78%;top:42%;animation-delay:1.8s}
+  #gate .m3{left:65%;top:22%;animation-delay:3.4s}
+  @keyframes mhfloat{
+    0%{opacity:0;transform:translateY(24px) scale(.7)}
+    25%{opacity:.95}
+    100%{opacity:0;transform:translateY(-80px) scale(1.1)}
+  }
+
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none;transition:none}
     #gate .heart,.scrolldown{animation:none}
@@ -156,10 +182,18 @@
 </head>
 <body>
 
+<canvas id="fx"></canvas>
+<div id="ytWrap"><div id="ytPlayer"></div></div>
 <button id="musicToggle" aria-label="music on/off">🔇</button>
 
 <div id="gate">
   <div class="heart">💛</div>
+  <svg class="art" viewBox="0 0 120 84" width="118" height="82" fill="none" stroke="#b4641f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 72 C32 52 18 38 18 26 C18 16 26 9 35 9 C45 9 54 15 60 25 C66 15 75 9 85 9 C94 9 102 16 102 26 C102 38 88 52 60 72 Z"/>
+    <path d="M28 18 l0 8 M24 22 l8 0" stroke-width="2"/>
+    <path d="M94 52 l0 7 M90.5 55.5 l7 0" stroke-width="2"/>
+  </svg>
+  <span class="mh m1">💛</span><span class="mh m2">🤍</span><span class="mh m3">💕</span>
   <div class="kicker">hey sriju...</div>
   <div class="serif big">i made this<br>for you.</div>
   <p class="line">headphones lagau if you can —<br>just me talking to you. honestly.</p>
@@ -263,10 +297,13 @@
     <div class="kicker reveal">so...</div>
     <div class="serif big reveal d1">yes.<br><span class="hl">i am in love.</span><br>with you.</div>
     <p class="line reveal d2" style="margin-top:24px">— siddhu</p>
+    <svg class="art reveal d3" viewBox="0 0 120 84" width="86" height="60" fill="none" stroke="#c96a5a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:26px">
+      <path d="M60 72 C32 52 18 38 18 26 C18 16 26 9 35 9 C45 9 54 15 60 25 C66 15 75 9 85 9 C94 9 102 16 102 26 C102 38 88 52 60 72 Z"/>
+    </svg>
   </section>
 </main>
 
-<footer>for sriju 💛 · v3</footer>
+<footer>for sriju 💛 · v4</footer>
 
 <script>
 (function(){
@@ -320,77 +357,193 @@
     setTimeout(function(){ s.remove(); }, 1600);
   });
 
-  /* ---------- generative soft music (Web Audio, no files) ---------- */
-  var AC=null, master=null, delaySend=null, musicOn=false, padTimer=null, melTimer=null, chordIx=0;
-  var CHORDS = [
-    [130.81, 164.81, 196.00, 246.94],
-    [110.00, 130.81, 164.81, 196.00],
-    [ 87.31, 130.81, 174.61, 220.00],
-    [ 98.00, 146.83, 196.00, 293.66]
-  ];
-  var PENTA = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
-  var melIx = 2;
+  /* ---------- floating hearts canvas ---------- */
+  var fx = document.getElementById("fx"), fctx = fx.getContext("2d");
+  var fp = [], fxOn = false;
+  var ICONS = ["💛","🤍","🌸","💕","🤍","💛"];
+  function fxSize(){ fx.width = innerWidth; fx.height = innerHeight; }
+  fxSize(); addEventListener("resize", fxSize);
+  function fxSpawn(anywhere){
+    fp.push({
+      x: Math.random()*fx.width,
+      y: anywhere ? Math.random()*fx.height : fx.height + 30,
+      s: 11 + Math.random()*15,
+      vy: .28 + Math.random()*.65,
+      ph: Math.random()*6.28,
+      sw: .4 + Math.random()*.8,
+      a: .22 + Math.random()*.34,
+      ch: ICONS[Math.floor(Math.random()*ICONS.length)]
+    });
+  }
+  function fxTick(){
+    if(!fxOn) return;
+    fctx.clearRect(0,0,fx.width,fx.height);
+    if(fp.length < 32 && Math.random() < .38) fxSpawn(false);
+    for(var i=fp.length-1;i>=0;i--){
+      var p = fp[i];
+      p.y -= p.vy; p.ph += .012;
+      p.x += Math.sin(p.ph)*p.sw*.45;
+      if(p.y < -40){ fp.splice(i,1); continue; }
+      fctx.save();
+      fctx.globalAlpha = p.a;
+      fctx.translate(p.x, p.y);
+      fctx.rotate(Math.sin(p.ph)*.22);
+      fctx.font = p.s + "px serif";
+      fctx.textAlign = "center"; fctx.textBaseline = "middle";
+      fctx.fillText(p.ch, 0, 0);
+      fctx.restore();
+    }
+    requestAnimationFrame(fxTick);
+  }
+  function startFx(){
+    if(reduced || fxOn) return; fxOn = true;
+    for(var k=0;k<14;k++) fxSpawn(true);
+    fxTick();
+  }
+
+  /* ---------- music: romantic track, composed fallback ---------- */
+  var YT_ID = "cIuxIBYjwjo"; // verified: Soft Romantic Piano Love Songs (Romantic Piano)
+  var AC=null, master=null, delaySend=null;
+  var ytPlayer=null, ytApiLoading=false;
+  var musicMode=null; // null | 'trying-yt' | 'yt' | 'gen'
+  var wantMusic=false;
+  var genTimer=null, genIx=0, padIx=0;
+  var toggleBtn = document.getElementById("musicToggle");
+
   function ensureAC(){
     if(AC) return;
     AC = new (window.AudioContext || window.webkitAudioContext)();
     master = AC.createGain(); master.gain.value = .9; master.connect(AC.destination);
-    var delay = AC.createDelay(1); delay.delayTime.value = .46;
-    var fb = AC.createGain(); fb.gain.value = .34;
-    var wet = AC.createGain(); wet.gain.value = .3;
+    var delay = AC.createDelay(1); delay.delayTime.value = .48;
+    var fb = AC.createGain(); fb.gain.value = .36;
+    var wet = AC.createGain(); wet.gain.value = .32;
     delaySend = AC.createGain(); delaySend.gain.value = 1;
     delaySend.connect(delay); delay.connect(fb); fb.connect(delay);
     delay.connect(wet); wet.connect(master);
   }
-  function playChord(freqs){
+  /* composed tender fallback: original music-box lullaby */
+  var MEL = [
+    [329.63,1],[392.00,1],[523.25,2],
+    [493.88,2],[392.00,2],
+    [440.00,1],[392.00,1],[329.63,2],
+    [293.66,3],[0,1],
+    [329.63,1],[392.00,1],[440.00,2],
+    [392.00,2],[329.63,2],
+    [293.66,1],[329.63,1],[261.63,3],
+    [0,2]
+  ];
+  var PADS = [
+    [261.63,329.63,392.00],[196.00,246.94,392.00],
+    [261.63,329.63,392.00],[174.61,220.00,349.23]
+  ];
+  var BEAT = .62;
+  function musicBox(freq, beats){
+    if(!freq) return;
+    var t = AC.currentTime;
+    var o = AC.createOscillator(); o.type="sine"; o.frequency.value=freq;
+    var o2 = AC.createOscillator(); o2.type="triangle"; o2.frequency.value=freq*2;
+    var g = AC.createGain(), g2 = AC.createGain();
+    var dur = beats*BEAT;
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.linearRampToValueAtTime(.06, t+.04);
+    g.gain.exponentialRampToValueAtTime(.0001, t+Math.max(dur*1.6, 2.2));
+    g2.gain.setValueAtTime(.0001, t);
+    g2.gain.linearRampToValueAtTime(.014, t+.04);
+    g2.gain.exponentialRampToValueAtTime(.0001, t+1.6);
+    o.connect(g); g.connect(master); g.connect(delaySend);
+    o2.connect(g2); g2.connect(master);
+    o.start(t); o.stop(t+dur*2+1); o2.start(t); o2.stop(t+2);
+  }
+  function softPad(freqs){
     var t = AC.currentTime;
     var g = AC.createGain();
     g.gain.setValueAtTime(.0001, t);
-    g.gain.linearRampToValueAtTime(.04, t+3);
-    g.gain.linearRampToValueAtTime(.0001, t+9.5);
-    var f = AC.createBiquadFilter(); f.type="lowpass"; f.frequency.value=750;
+    g.gain.linearRampToValueAtTime(.032, t+2.5);
+    g.gain.linearRampToValueAtTime(.0001, t+9);
+    var f = AC.createBiquadFilter(); f.type="lowpass"; f.frequency.value=640;
     g.connect(f); f.connect(master);
     freqs.forEach(function(fr){
       var o = AC.createOscillator(); o.type="triangle"; o.frequency.value=fr;
-      o.detune.value = Math.random()*6-3;
-      o.connect(g); o.start(t); o.stop(t+10);
+      o.detune.value = Math.random()*5-2.5;
+      o.connect(g); o.start(t); o.stop(t+9.5);
     });
   }
-  function pluck(freq){
-    var t = AC.currentTime;
-    var o = AC.createOscillator(); o.type="sine"; o.frequency.value=freq;
-    var g = AC.createGain();
-    g.gain.setValueAtTime(.0001, t);
-    g.gain.linearRampToValueAtTime(.05, t+.03);
-    g.gain.exponentialRampToValueAtTime(.0001, t+3.2);
-    o.connect(g); g.connect(master); g.connect(delaySend);
-    o.start(t); o.stop(t+3.4);
+  function genStep(){
+    if(musicMode !== 'gen' || !wantMusic) return;
+    var n = MEL[genIx % MEL.length];
+    if(genIx % 8 === 0) softPad(PADS[padIx++ % PADS.length]);
+    musicBox(n[0], n[1]);
+    genIx++;
+    genTimer = setTimeout(genStep, n[1]*BEAT*1000);
   }
-  function padLoop(){
-    if(!musicOn) return;
-    playChord(CHORDS[chordIx % CHORDS.length]); chordIx++;
-    padTimer = setTimeout(padLoop, 8000);
+  function genStart(){
+    if(musicMode === 'gen') return;
+    try{ if(ytPlayer && ytPlayer.stopVideo) ytPlayer.stopVideo(); }catch(e){}
+    musicMode = 'gen';
+    if(AC.state === 'suspended') AC.resume();
+    toggleBtn.textContent = "🔊";
+    genStep();
   }
-  function melLoop(){
-    if(!musicOn) return;
-    if(Math.random() < .75){
-      melIx += [-2,-1,-1,1,1,2][Math.floor(Math.random()*6)];
-      melIx = Math.max(0, Math.min(PENTA.length-1, melIx));
-      pluck(PENTA[melIx]);
-      if(Math.random() < .25) setTimeout(function(){ if(musicOn) pluck(PENTA[Math.max(0,melIx-2)]); }, 700);
+  function ytAttempt(){
+    if(musicMode === 'yt' || musicMode === 'trying-yt') return;
+    if(ytPlayer){ // already have one — just play it
+      musicMode = 'trying-yt';
+      try{ ytPlayer.playVideo(); }catch(e){ genStart(); return; }
+      setTimeout(function(){ if(musicMode!=='yt') genStart(); }, 7000);
+      return;
     }
-    melTimer = setTimeout(melLoop, 2600 + Math.random()*3200);
+    musicMode = 'trying-yt';
+    function create(){
+      try{
+        ytPlayer = new YT.Player('ytPlayer', {
+          width:'2', height:'2', videoId: YT_ID,
+          playerVars:{autoplay:0, loop:1, playlist:YT_ID, controls:0, disablekb:1, rel:0},
+          events:{
+            onReady: function(e){
+              try{ e.target.setVolume(60); e.target.playVideo(); }catch(err){}
+            },
+            onStateChange: function(e){
+              if(e.data === YT.PlayerState.PLAYING){ musicMode='yt'; toggleBtn.textContent="🔊"; }
+            },
+            onError: function(){ if(musicMode!=='yt') genStart(); }
+          }
+        });
+        try{ ytPlayer.playVideo(); }catch(e){}
+        setTimeout(function(){ if(musicMode!=='yt') genStart(); }, 7000);
+      }catch(e){ genStart(); }
+    }
+    if(window.YT && window.YT.Player){ create(); }
+    else if(!ytApiLoading){
+      ytApiLoading = true;
+      window.onYouTubeIframeAPIReady = function(){ if(wantMusic) create(); };
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      tag.onerror = function(){ genStart(); };
+      document.head.appendChild(tag);
+      setTimeout(function(){ if(musicMode!=='yt' && musicMode!=='gen') genStart(); }, 9000);
+    }
   }
-  var toggleBtn = document.getElementById("musicToggle");
   function setMusic(on){
-    ensureAC();
-    if(on && !musicOn){ AC.resume(); musicOn=true; padLoop(); melLoop(); toggleBtn.textContent="🔊"; }
-    else if(!on && musicOn){ musicOn=false; clearTimeout(padTimer); clearTimeout(melTimer); AC.suspend(); toggleBtn.textContent="🔇"; }
+    wantMusic = on;
+    if(on){
+      ensureAC();
+      if(AC.state === 'suspended') AC.resume();
+      toggleBtn.textContent = "🔊";
+      ytAttempt();
+    }else{
+      toggleBtn.textContent = "🔇";
+      try{ if(ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); }catch(e){}
+      clearTimeout(genTimer); genTimer = null;
+      if(AC && AC.state === 'running') AC.suspend();
+      if(musicMode === 'gen') musicMode = null;
+    }
   }
-  toggleBtn.addEventListener("click", function(){ setMusic(!musicOn); });
+  toggleBtn.addEventListener("click", function(){ setMusic(!wantMusic); });
 
   /* ---------- gate ---------- */
   document.getElementById("openBtn").addEventListener("click", function(){
     document.getElementById("gate").classList.add("gone");
+    startFx();
     setMusic(true);
     setTimeout(function(){ document.getElementById("c1").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); }, 450);
   });
