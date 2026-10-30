@@ -3,139 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1a0e08">
+<meta name="theme-color" content="#faf4e8">
 <title>for sriju 💛</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg0:#140b07;
-    --bg1:#241209;
-    --cream:#f7e9d4;
-    --cream-dim:#d9bfa0;
-    --gold:#e8a94e;
-    --gold-soft:#f2c078;
-    --rose:#e07878;
-    --blush:#f0a98e;
-    --card:#2a170d;
+    --paper:#faf4e8;
+    --paper2:#fffdf7;
+    --ink:#2e1b10;
+    --ink-dim:#7a5c44;
+    --ink-faint:#a98f71;
+    --accent:#b4641f;
+    --accent-soft:#d99a4e;
+    --rose:#c96a5a;
+    --line:#e8d9c0;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
   body{
     font-family:'Inter',system-ui,sans-serif;
-    color:var(--cream);
-    background:
-      radial-gradient(120% 90% at 50% 0%, #3a1d0e 0%, var(--bg1) 45%, var(--bg0) 100%);
+    color:var(--ink);
+    background:var(--paper);
     min-height:100vh;
     overflow-x:hidden;
-    line-height:1.7;
+    line-height:1.75;
     font-weight:300;
   }
-  body::after{ /* warm vignette */
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:3;
-    background:radial-gradient(90% 70% at 50% 45%, transparent 55%, rgba(10,5,3,.55) 100%);
-  }
-  #embers{position:fixed;inset:0;z-index:1;pointer-events:none}
   main{position:relative;z-index:2}
 
   .chapter{
     min-height:100svh;
     display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;padding:12vh 22px;max-width:640px;margin:0 auto;
+    text-align:center;padding:11vh 24px;max-width:620px;margin:0 auto;
   }
   .kicker{
-    font-size:12px;letter-spacing:.35em;text-transform:uppercase;
-    color:var(--gold);margin-bottom:26px;font-weight:400;
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:24px;font-weight:500;
   }
-  .serif{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.35}
-  .big{font-size:clamp(34px,8.5vw,58px);margin-bottom:22px}
-  .med{font-size:clamp(22px,5.5vw,32px);margin-bottom:18px}
-  p.line{font-size:clamp(16px,4.4vw,19px);color:var(--cream-dim);margin-bottom:16px;max-width:34em}
-  p.line b, p.line strong{color:var(--cream);font-weight:500}
-  .gold{color:var(--gold-soft)}
-  .rose{color:var(--rose)}
+  .serif{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.35;color:var(--ink)}
+  .big{font-size:clamp(34px,8.5vw,56px);margin-bottom:20px}
+  .med{font-size:clamp(22px,5.5vw,30px);margin-bottom:16px}
+  p.line{font-size:clamp(16px,4.4vw,18px);color:var(--ink-dim);margin-bottom:15px;max-width:33em}
+  p.line .hl{color:var(--accent);font-weight:500}
 
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1.1s ease,transform 1.1s ease}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity 1s ease,transform 1s ease}
   .reveal.visible{opacity:1;transform:none}
-  .d1{transition-delay:.15s}.d2{transition-delay:.35s}.d3{transition-delay:.55s}.d4{transition-delay:.75s}
+  .d1{transition-delay:.12s}.d2{transition-delay:.3s}.d3{transition-delay:.48s}.d4{transition-delay:.66s}
 
   /* gate */
   #gate{
     position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;
     justify-content:center;align-items:center;text-align:center;padding:24px;
-    background:radial-gradient(100% 80% at 50% 30%, #2c160b 0%, #120a06 70%);
-    transition:opacity 1.2s ease;
+    background:var(--paper);
+    transition:opacity 1s ease;
   }
   #gate.gone{opacity:0;pointer-events:none}
-  #gate .heart{font-size:54px;margin-bottom:26px;animation:beat 1.8s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(232,169,78,.55))}
-  @keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.12)}24%{transform:scale(1)}}
+  #gate .heart{font-size:46px;margin-bottom:24px;animation:beat 2s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.1)}24%{transform:scale(1)}}
   .btn{
-    margin-top:34px;padding:15px 46px;border:none;border-radius:999px;cursor:pointer;
-    font-family:'Inter',sans-serif;font-size:16px;font-weight:500;letter-spacing:.06em;
-    color:#2a1408;background:linear-gradient(135deg,var(--gold-soft),var(--gold));
-    box-shadow:0 8px 30px rgba(232,169,78,.35);
-    transition:transform .25s ease,box-shadow .25s ease;
+    margin-top:32px;padding:14px 44px;border:none;border-radius:999px;cursor:pointer;
+    font-family:'Inter',sans-serif;font-size:15px;font-weight:500;letter-spacing:.05em;
+    color:#fffdf7;background:var(--ink);
+    transition:transform .25s ease,opacity .25s ease;
   }
   .btn:active{transform:scale(.96)}
-  .btn:disabled{opacity:.6;cursor:default}
-  .hint{margin-top:22px;font-size:13px;color:var(--cream-dim);letter-spacing:.08em}
+  .btn:disabled{opacity:.55;cursor:default}
+  .hint{margin-top:20px;font-size:12px;color:var(--ink-faint);letter-spacing:.08em}
 
   /* typewriter caret */
-  .type-caret{display:inline-block;width:2px;height:1em;background:var(--gold-soft);vertical-align:-.12em;margin-left:3px;animation:blink 1s steps(1) infinite}
+  .type-caret{display:inline-block;width:2px;height:1em;background:var(--accent);vertical-align:-.12em;margin-left:3px;animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
 
-  /* cards */
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px;width:100%;max-width:520px}
+  /* minimal tap cards */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px;width:100%;max-width:520px}
   @media(max-width:420px){.cards{grid-template-columns:1fr}}
-  .card{perspective:800px;cursor:pointer;min-height:150px}
-  .card-inner{
-    position:relative;width:100%;height:100%;min-height:150px;
-    transition:transform .7s cubic-bezier(.2,.7,.3,1.2);transform-style:preserve-3d;
+  .card{
+    cursor:pointer;border:1px solid var(--line);border-radius:16px;
+    background:var(--paper2);padding:26px 18px;min-height:120px;
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .3s ease, box-shadow .3s ease;
   }
-  .card.flipped .card-inner{transform:rotateY(180deg)}
-  .face{
-    position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
-    border-radius:18px;display:flex;align-items:center;justify-content:center;
-    padding:20px;font-size:15px;
-  }
-  .front{background:rgba(232,169,78,.08);border:1px solid rgba(232,169,78,.35);color:var(--gold-soft);font-size:26px}
-  .back{background:var(--card);border:1px solid rgba(240,169,142,.25);color:var(--cream-dim);transform:rotateY(180deg);font-size:15px;line-height:1.6}
+  .card.open{border-color:var(--accent-soft);box-shadow:0 6px 22px rgba(180,100,31,.10)}
+  .card .q{font-size:22px;color:var(--accent-soft);transition:opacity .3s}
+  .card .a{display:none;font-size:15px;color:var(--ink-dim);line-height:1.65}
+  .card.open .q{display:none}
+  .card.open .a{display:block;animation:fadein .5s ease}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
   /* message box */
-  .msgbox{width:100%;max-width:520px;margin-top:30px}
+  .msgbox{width:100%;max-width:520px;margin-top:28px}
   textarea{
-    width:100%;min-height:130px;resize:vertical;border-radius:16px;padding:16px;
-    background:rgba(20,11,7,.7);border:1px solid rgba(232,169,78,.3);
-    color:var(--cream);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;outline:none;
+    width:100%;min-height:120px;resize:vertical;border-radius:14px;padding:15px 16px;
+    background:var(--paper2);border:1px solid var(--line);
+    color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;outline:none;
+    transition:border-color .3s;
   }
-  textarea:focus{border-color:var(--gold)}
-  textarea::placeholder{color:#8a6f56}
-  #sent{display:none;margin-top:26px}
-  #sent.show{display:block;animation:pop .6s ease}
-  @keyframes pop{0%{transform:scale(.85);opacity:0}100%{transform:scale(1);opacity:1}}
+  textarea:focus{border-color:var(--accent-soft)}
+  textarea::placeholder{color:var(--ink-faint)}
+  #sent{display:none;margin-top:24px}
+  #sent.show{display:block;animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
 
   /* floating hearts on tap */
-  .float-heart{
-    position:fixed;z-index:15;pointer-events:none;font-size:20px;
-    animation:rise 1.6s ease-out forwards;
-  }
+  .float-heart{position:fixed;z-index:15;pointer-events:none;font-size:16px;animation:rise 1.5s ease-out forwards}
   @keyframes rise{
     0%{opacity:0;transform:translateY(0) scale(.6)}
-    15%{opacity:1}
-    100%{opacity:0;transform:translateY(-110px) scale(1.15) rotate(12deg)}
+    15%{opacity:.9}
+    100%{opacity:0;transform:translateY(-90px) scale(1.1)}
   }
 
   #musicToggle{
-    position:fixed;top:16px;right:16px;z-index:18;
-    width:44px;height:44px;border-radius:50%;border:1px solid rgba(232,169,78,.4);
-    background:rgba(20,11,7,.6);color:var(--gold-soft);font-size:18px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);
+    position:fixed;top:14px;right:14px;z-index:18;
+    width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(255,253,247,.85);color:var(--ink-dim);font-size:17px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
   }
-  .scrolldown{margin-top:44px;color:var(--cream-dim);font-size:12px;letter-spacing:.3em;animation:bob 2.4s ease-in-out infinite}
-  @keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(8px);opacity:1}}
+  .scrolldown{margin-top:40px;color:var(--ink-faint);font-size:11px;letter-spacing:.3em;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
 
-  footer{position:relative;z-index:2;text-align:center;padding:40px 20px 54px;color:#8a6f56;font-size:12px;letter-spacing:.12em}
+  .divider{width:44px;height:1px;background:var(--line);margin:0 auto}
+  footer{text-align:center;padding:36px 20px 50px;color:var(--ink-faint);font-size:11px;letter-spacing:.14em}
 
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none;transition:none}
@@ -146,14 +135,13 @@
 </head>
 <body>
 
-<canvas id="embers"></canvas>
 <button id="musicToggle" aria-label="music on/off">🔇</button>
 
 <div id="gate">
   <div class="heart">💛</div>
   <div class="kicker">hey sriju...</div>
   <div class="serif big">i made this<br>for you.</div>
-  <p class="line">headphones lagau if you can. yaha kei fancy chhaina —<br>just me, talking to you. honestly.</p>
+  <p class="line">headphones lagau if you can —<br>just me talking to you. honestly.</p>
   <button class="btn" id="openBtn">open 💛</button>
   <div class="hint">take your time. scroll slowly.</div>
 </div>
@@ -161,11 +149,11 @@
 <main>
   <!-- 1 · her fear -->
   <section class="chapter" id="c1">
-    <div class="kicker reveal">first, sunana...</div>
-    <div class="serif med reveal d1">i know what scares you, babe.</div>
-    <p class="line reveal d2">timi lai lagiracha — <i>what if</i> ma timi lai hurt garchu? <i>what if</i> yo attachment le timi lai pachi dukhauchha?</p>
-    <p class="line reveal d3">that fear... it's valid. ma timro thau ma bhaye, malai pani testai lagthyo hola.</p>
-    <p class="line reveal d4">tara ek choti — just ek choti — mero kura sunana.</p>
+    <div class="kicker reveal">euta kura</div>
+    <div class="serif med reveal d1">i know timi k bata daraaira chau, babe.</div>
+    <p class="line reveal d2">timi sochirachau — <i>what if</i> maile timi lai hurt gare? <i>what if</i> yo attachment le timi lai pachi ruwauchha?</p>
+    <p class="line reveal d3">and honestly... that's fair. ma bhaye pani testai sochthye hola.</p>
+    <p class="line reveal d4">tara ekchoti, mero kura ni sunana?</p>
     <div class="scrolldown reveal d4">scroll ↓</div>
   </section>
 
@@ -173,27 +161,27 @@
   <section class="chapter" id="c2">
     <div class="kicker reveal">the one thing i need you to believe</div>
     <div class="serif big reveal d1"><span id="promiseLine"></span><span class="type-caret" id="promiseCaret" style="display:none"></span></div>
-    <p class="line reveal d2">yo line maile timi lai impress garna lekheko haina.</p>
-    <p class="line reveal d3">it's just... true.</p>
-    <p class="line reveal d4">malai pani timi sangai basna mann cha. timi sanga huda ko yo feelings — <span class="gold">kasto ramro cha k, babe.</span></p>
+    <p class="line reveal d2">yo impress garna lekheko haina.</p>
+    <p class="line reveal d3">it's just true.</p>
+    <p class="line reveal d4">malai pani timi sangai basna mann cha. timi sanga huda ko yo feelings — <span class="hl">kasto ramro cha k, babe.</span></p>
   </section>
 
   <!-- 3 · real memory -->
   <section class="chapter" id="c3">
-    <div class="kicker reveal">ani euta kura...</div>
-    <div class="serif big reveal d1">timro smell<br>aja pani <span class="rose">mero room ma cha.</span></div>
-    <p class="line reveal d2">door kholne bittikai, ek second ko lagi lagcha — timi yei chau.</p>
-    <p class="line reveal d3">timi gayeu. tara timro euta part yei chhodera gayeu.</p>
-    <p class="line reveal d4">ani honestly? <span class="gold">malai tyo man parcha.</span></p>
+    <div class="kicker reveal">ani euta kura</div>
+    <div class="serif big reveal d1">timro smell<br>aja pani <span style="color:var(--rose)">mero room ma cha.</span></div>
+    <p class="line reveal d2">room ko door kholne bittikai, ekchin lai lagcha — timi yei chau.</p>
+    <p class="line reveal d3">timi ta gayeu. tara timro smell chai yei chhodera gayeu.</p>
+    <p class="line reveal d4">and honestly? <span class="hl">malai tyo man parcha.</span></p>
   </section>
 
   <!-- 4 · serious -->
   <section class="chapter" id="c4">
     <div class="kicker reveal">listen, sriju</div>
     <div class="serif med reveal d1">i'm serious about this.<br>about you. about us.</div>
-    <p class="line reveal d2">yo mero lagi timepass haina, babe. <span class="gold">i want this — i want this so badly.</span></p>
-    <p class="line reveal d3">timi confused chau — thaha cha malai. ma timi lai force gardina. kabhi pani.</p>
-    <p class="line reveal d4">i'll just be here. consistently.<br>jaba samma timi afai sure hun Chau.</p>
+    <p class="line reveal d2">yo mero lagi timepass haina, babe. <span class="hl">i want this — i want this so badly.</span></p>
+    <p class="line reveal d3">timi confused chau, thaha cha malai. ma timi lai force gardina — kahile pani.</p>
+    <p class="line reveal d4">ma bas yei hunchu. consistently.<br>jaba samma timi afai sure hundainau.</p>
   </section>
 
   <!-- 5 · little things -->
@@ -201,38 +189,26 @@
     <div class="kicker reveal">things i keep thinking about</div>
     <div class="serif med reveal d1">tap them 🤍</div>
     <div class="cards reveal d2">
-      <div class="card"><div class="card-inner">
-        <div class="face front">💛</div>
-        <div class="face back">timro laugh — room nai ujyalo huncha jasto lagcha.</div>
-      </div></div>
-      <div class="card"><div class="card-inner">
-        <div class="face front">💛</div>
-        <div class="face back">timi mero naam lida... i don't know, it just hits different.</div>
-      </div></div>
-      <div class="card"><div class="card-inner">
-        <div class="face front">💛</div>
-        <div class="face back">late night talks — time kasari jancha, thaha nai hudaina.</div>
-      </div></div>
-      <div class="card"><div class="card-inner">
-        <div class="face front">💛</div>
-        <div class="face back">timi risako bela pani... even that, i find cute. don't tell anyone.</div>
-      </div></div>
+      <div class="card"><div class="q">💛</div><div class="a">timro laugh — sunda sath room nai ujyalo bhako jasto lagcha.</div></div>
+      <div class="card"><div class="q">💛</div><div class="a">timi mero naam lida... i don't know, it just hits different.</div></div>
+      <div class="card"><div class="q">💛</div><div class="a">late night talks — kura garda garda time kasari jancha, thaha nai hudaina.</div></div>
+      <div class="card"><div class="q">💛</div><div class="a">timi risako bela pani... even that, i find cute. don't tell anyone.</div></div>
     </div>
   </section>
 
-  <!-- 6 · promises -->
+  <!-- 6 · practical promises -->
   <section class="chapter" id="c6">
-    <div class="kicker reveal">my promises to you</div>
-    <p class="line reveal d1">jaba timi darauchhau — <span class="gold">ma bhagdin.</span> ma baschu, timro najik.</p>
-    <p class="line reveal d2">timro trust <span class="gold">maile earn garchu.</span> magne hoina — earn garne.</p>
-    <p class="line reveal d3">timi mero priority hau, babe.<br><span class="gold">not an option — the plan.</span></p>
+    <div class="kicker reveal">what i'll actually do</div>
+    <p class="line reveal d1">jaba garo huncha — <span class="hl">ma bhagdin.</span> ma yei hunchu, timro najik.</p>
+    <p class="line reveal d2"><span class="hl">i'll show up.</span> call garchu, time dinchu, kura sunchu. consistently.</p>
+    <p class="line reveal d3">timi mero priority hau, babe.<br><span class="hl">not an option — the plan.</span></p>
   </section>
 
   <!-- 7 · message box -->
   <section class="chapter" id="c7">
     <div class="kicker reveal">one last thing...</div>
     <div class="serif med reveal d1">if i'm not around —</div>
-    <p class="line reveal d2">kunai pani social media ma nabhaye, or just mann lagyo bhane...<br>yaha kei chhodera ja. <span class="gold">maile padhchu. promise.</span></p>
+    <p class="line reveal d2">kunai pani social media ma nabhaye, or just mann lagyo bhane...<br>yaha kei chhodera ja. <span class="hl">maile padhchu. promise.</span></p>
     <div class="msgbox reveal d3" id="msgForm">
       <textarea id="msgText" placeholder="babe, aja..." maxlength="2000"></textarea>
       <button class="btn" id="sendBtn" style="width:100%">send to siddhu 💛</button>
@@ -246,52 +222,18 @@
   <!-- 8 · closing -->
   <section class="chapter" id="c8">
     <div class="kicker reveal">so...</div>
-    <div class="serif big reveal d1">yes.<br><span class="gold">i am in love.</span><br>with you.</div>
-    <p class="line reveal d2" style="margin-top:26px">— siddhu</p>
+    <div class="serif big reveal d1">yes.<br><span class="hl">i am in love.</span><br>with you.</div>
+    <p class="line reveal d2" style="margin-top:24px">— siddhu</p>
   </section>
 </main>
 
-<footer>for sriju 💛 · made with everything i feel · v1</footer>
+<footer>for sriju 💛 · v2</footer>
 
 <script>
 (function(){
   "use strict";
   var SHEET_URL = "https://script.google.com/macros/s/AKfycbxzyBNgAYApgecO02SUii3WMZoRuacuOGNs83uLjV6JFLcBDmVe96Z0DW_ekzchVpwbkg/exec"; // patched at push time
   var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---------- embers canvas ---------- */
-  var canvas = document.getElementById("embers"), ctx = canvas.getContext("2d");
-  var parts = [], running = false;
-  function sizeCanvas(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-  sizeCanvas(); addEventListener("resize", sizeCanvas);
-  function spawn(){
-    parts.push({
-      x: Math.random()*canvas.width,
-      y: canvas.height + 10,
-      r: 1 + Math.random()*2.6,
-      vy: .25 + Math.random()*.6,
-      vx: (Math.random()-.5)*.35,
-      a: .25 + Math.random()*.5,
-      hue: 18 + Math.random()*22
-    });
-  }
-  function tick(){
-    if(!running) return;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(parts.length < 70 && Math.random() < .5) spawn();
-    for(var i=parts.length-1;i>=0;i--){
-      var p = parts[i];
-      p.y -= p.vy; p.x += p.vx + Math.sin(p.y*.01)*.25; p.a -= .0016;
-      if(p.a <= 0 || p.y < -12){ parts.splice(i,1); continue; }
-      var g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-      g.addColorStop(0, "hsla("+p.hue+",85%,62%,"+p.a+")");
-      g.addColorStop(1, "hsla("+p.hue+",85%,62%,0)");
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*4,0,7); ctx.fill();
-    }
-    requestAnimationFrame(tick);
-  }
-  function startEmbers(){ if(reduced || running) return; running = true; tick(); }
 
   /* ---------- scroll reveals ---------- */
   var io = new IntersectionObserver(function(es){
@@ -320,32 +262,32 @@
   }, {threshold:.5});
   pio.observe(document.getElementById("c2"));
 
-  /* ---------- flip cards ---------- */
+  /* ---------- tap cards ---------- */
   document.querySelectorAll(".card").forEach(function(c){
-    c.addEventListener("click", function(){ c.classList.toggle("flipped"); });
+    c.addEventListener("click", function(){ c.classList.toggle("open"); });
   });
 
   /* ---------- floating hearts on tap ---------- */
   var lastHeart = 0;
   document.addEventListener("pointerdown", function(e){
     if(e.target.closest("button, textarea, .card, #musicToggle")) return;
-    var now = Date.now(); if(now - lastHeart < 350) return; lastHeart = now;
+    var now = Date.now(); if(now - lastHeart < 500) return; lastHeart = now;
     var s = document.createElement("span");
     s.className = "float-heart";
-    s.textContent = ["💛","🤍","💛"][Math.floor(Math.random()*3)];
-    s.style.left = (e.clientX - 10) + "px";
-    s.style.top = (e.clientY - 10) + "px";
+    s.textContent = ["🤍","💛","🤍"][Math.floor(Math.random()*3)];
+    s.style.left = (e.clientX - 8) + "px";
+    s.style.top = (e.clientY - 8) + "px";
     document.body.appendChild(s);
-    setTimeout(function(){ s.remove(); }, 1700);
+    setTimeout(function(){ s.remove(); }, 1600);
   });
 
   /* ---------- generative soft music (Web Audio, no files) ---------- */
   var AC=null, master=null, delaySend=null, musicOn=false, padTimer=null, melTimer=null, chordIx=0;
   var CHORDS = [
-    [130.81, 164.81, 196.00, 246.94],  // Cmaj7
-    [110.00, 130.81, 164.81, 196.00],  // Am7
-    [ 87.31, 130.81, 174.61, 220.00],  // Fmaj7
-    [ 98.00, 146.83, 196.00, 293.66]   // G6-ish
+    [130.81, 164.81, 196.00, 246.94],
+    [110.00, 130.81, 164.81, 196.00],
+    [ 87.31, 130.81, 174.61, 220.00],
+    [ 98.00, 146.83, 196.00, 293.66]
   ];
   var PENTA = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
   var melIx = 2;
@@ -364,7 +306,7 @@
     var t = AC.currentTime;
     var g = AC.createGain();
     g.gain.setValueAtTime(.0001, t);
-    g.gain.linearRampToValueAtTime(.045, t+3);
+    g.gain.linearRampToValueAtTime(.04, t+3);
     g.gain.linearRampToValueAtTime(.0001, t+9.5);
     var f = AC.createBiquadFilter(); f.type="lowpass"; f.frequency.value=750;
     g.connect(f); f.connect(master);
@@ -379,7 +321,7 @@
     var o = AC.createOscillator(); o.type="sine"; o.frequency.value=freq;
     var g = AC.createGain();
     g.gain.setValueAtTime(.0001, t);
-    g.gain.linearRampToValueAtTime(.055, t+.03);
+    g.gain.linearRampToValueAtTime(.05, t+.03);
     g.gain.exponentialRampToValueAtTime(.0001, t+3.2);
     o.connect(g); g.connect(master); g.connect(delaySend);
     o.start(t); o.stop(t+3.4);
@@ -410,9 +352,8 @@
   /* ---------- gate ---------- */
   document.getElementById("openBtn").addEventListener("click", function(){
     document.getElementById("gate").classList.add("gone");
-    startEmbers();
     setMusic(true);
-    setTimeout(function(){ document.getElementById("c1").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); }, 500);
+    setTimeout(function(){ document.getElementById("c1").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); }, 450);
   });
 
   /* ---------- message to sheet ---------- */
@@ -421,7 +362,7 @@
     if(sent) return;
     var ta = document.getElementById("msgText");
     var msg = ta.value.trim();
-    if(!msg){ ta.focus(); ta.style.borderColor = "#e07878"; return; }
+    if(!msg){ ta.focus(); ta.style.borderColor = "#c96a5a"; return; }
     ta.style.borderColor = "";
     var btn = document.getElementById("sendBtn");
     btn.disabled = true; btn.textContent = "sending...";
