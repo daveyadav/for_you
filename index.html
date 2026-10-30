@@ -124,6 +124,27 @@
   @keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
 
   .divider{width:44px;height:1px;background:var(--line);margin:0 auto}
+
+  /* proposal */
+  #proposalArea{position:relative;height:250px;margin-top:14px;width:100%;max-width:520px}
+  #yesBtn{margin-top:6px;position:relative;z-index:2}
+  #noBtn{
+    position:absolute;left:50%;top:120px;transform:translateX(-50%);
+    padding:12px 36px;border-radius:999px;cursor:pointer;
+    border:1px solid var(--line);background:var(--paper2);
+    color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:15px;
+    transition:left .28s ease, top .28s ease, transform .28s ease;
+    white-space:nowrap;
+  }
+  #plea{min-height:28px;margin-top:8px;font-size:15px;color:var(--rose);font-weight:400}
+  #yesMsg{display:none}
+  #yesMsg.show{display:block;animation:pop .6s ease}
+  .burst-heart{position:fixed;z-index:16;pointer-events:none;animation:burst 2.2s ease-out forwards}
+  @keyframes burst{
+    0%{opacity:0;transform:translateY(0) scale(.5)}
+    12%{opacity:1}
+    100%{opacity:0;transform:translateY(-46vh) scale(1.3) rotate(20deg)}
+  }
   footer{text-align:center;padding:36px 20px 50px;color:var(--ink-faint);font-size:11px;letter-spacing:.14em}
 
   @media (prefers-reduced-motion: reduce){
@@ -204,6 +225,24 @@
     <p class="line reveal d3">timi mero priority hau, babe.<br><span class="hl">not an option — the plan.</span></p>
   </section>
 
+  <!-- proposal -->
+  <section class="chapter" id="c-propose">
+    <div class="kicker reveal">euta question</div>
+    <div class="serif big reveal d1">sriju...<br>will you be <span class="hl">mine?</span> 💛</div>
+    <p class="line reveal d2">sochera answer dinu...<br><span style="font-size:13px;color:var(--ink-faint)">(psst — the no button is a little shy 🙈)</span></p>
+    <div id="proposalArea" class="reveal d3">
+      <button class="btn" id="yesBtn">yes 💛</button>
+      <button id="noBtn">no</button>
+    </div>
+    <p id="plea"></p>
+    <div id="yesMsg">
+      <div class="serif big">i knew it 💛</div>
+      <p class="line">i love you, sriju — fully, truly.</p>
+      <p class="line">aba dekhi i'm yours. <span class="hl">kahile pani nahatne gari.</span></p>
+      <p class="line" style="margin-top:18px">— timro siddhu</p>
+    </div>
+  </section>
+
   <!-- 7 · message box -->
   <section class="chapter" id="c7">
     <div class="kicker reveal">one last thing...</div>
@@ -227,7 +266,7 @@
   </section>
 </main>
 
-<footer>for sriju 💛 · v2</footer>
+<footer>for sriju 💛 · v3</footer>
 
 <script>
 (function(){
@@ -354,6 +393,64 @@
     document.getElementById("gate").classList.add("gone");
     setMusic(true);
     setTimeout(function(){ document.getElementById("c1").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); }, 450);
+  });
+
+  /* ---------- proposal: the un-clickable no ---------- */
+  var area = document.getElementById("proposalArea");
+  var yesBtn = document.getElementById("yesBtn");
+  var noBtn = document.getElementById("noBtn");
+  var plea = document.getElementById("plea");
+  var pleas = [
+    "ehh — tyo button chaldena 😅",
+    "no ta option nai haina, babe 😌",
+    "please na? 🥺",
+    "feri sochana... 💛",
+    "yes najik cha, just saying 😏",
+    "ma parkhirachu... jati time lagyeni 💛",
+    "okay yo last chance... still no? 😌",
+    "haha, yes dabau na 💛"
+  ];
+  var pleaIx = 0, dodges = 0, proposed = false;
+  function dodge(e){
+    if(e){ e.preventDefault(); }
+    if(proposed) return;
+    var aw = area.clientWidth, ah = area.clientHeight;
+    var bw = noBtn.offsetWidth, bh = noBtn.offsetHeight;
+    var x = 8 + Math.random() * Math.max(10, aw - bw - 16);
+    var y = 60 + Math.random() * Math.max(10, ah - bh - 70);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    noBtn.style.transform = "none";
+    plea.textContent = pleas[pleaIx % pleas.length]; pleaIx++;
+    dodges++;
+    var s = Math.min(1.35, 1 + dodges * 0.05);
+    yesBtn.style.transform = "scale(" + s + ")";
+  }
+  noBtn.addEventListener("pointerenter", dodge);
+  noBtn.addEventListener("touchstart", dodge, {passive:false});
+  noBtn.addEventListener("click", dodge);
+  yesBtn.addEventListener("click", function(){
+    if(proposed) return; proposed = true;
+    area.style.display = "none";
+    plea.textContent = "";
+    var ym = document.getElementById("yesMsg");
+    ym.classList.add("show");
+    var hearts = ["💛","🤍","💕","💛","🤍"];
+    for(var i=0;i<34;i++){
+      (function(i){
+        setTimeout(function(){
+          var s = document.createElement("span");
+          s.className = "burst-heart";
+          s.textContent = hearts[i % hearts.length];
+          s.style.fontSize = (14 + Math.random()*22) + "px";
+          s.style.left = (5 + Math.random()*90) + "vw";
+          s.style.top = (55 + Math.random()*35) + "vh";
+          document.body.appendChild(s);
+          setTimeout(function(){ s.remove(); }, 2300);
+        }, i * 70);
+      })(i);
+    }
+    setTimeout(function(){ ym.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"}); }, 350);
   });
 
   /* ---------- message to sheet ---------- */
