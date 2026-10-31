@@ -46,9 +46,13 @@
   .big{font-size:clamp(34px,8.5vw,56px);margin-bottom:20px}
   .med{font-size:clamp(22px,5.5vw,30px);margin-bottom:16px}
   p.line{font-size:clamp(16px,4.4vw,18px);color:var(--ink-dim);margin-bottom:15px;max-width:33em}
-  p.line .hl{color:var(--accent);font-weight:500}
+  p.line .hl, .serif .hl{
+    font-weight:600;
+    background:linear-gradient(115deg,#b4641f 10%,#d99a4e 45%,#c96a5a 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
 
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity 1s ease,transform 1s ease}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1.15s cubic-bezier(.22,.9,.28,1),transform 1.15s cubic-bezier(.22,.9,.28,1)}
   .reveal.visible{opacity:1;transform:none}
   .d1{transition-delay:.12s}.d2{transition-delay:.3s}.d3{transition-delay:.48s}.d4{transition-delay:.66s}
 
@@ -61,15 +65,17 @@
   }
   #gate.gone{opacity:0;pointer-events:none}
   #gate .heart{font-size:46px;margin-bottom:24px;animation:beat 2s ease-in-out infinite}
-  @keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.1)}24%{transform:scale(1)}}
+  @keyframes beat{0%,100%{transform:scale(1) rotate(0deg)}12%{transform:scale(1.14) rotate(-5deg)}24%{transform:scale(1) rotate(0deg)}38%{transform:scale(1.07) rotate(4deg)}52%{transform:scale(1) rotate(0deg)}}
   .btn{
     margin-top:32px;padding:14px 44px;border:none;border-radius:999px;cursor:pointer;
     font-family:'Inter',sans-serif;font-size:15px;font-weight:500;letter-spacing:.05em;
     color:#fffdf7;background:var(--ink);
-    transition:transform .25s ease,opacity .25s ease;
+    box-shadow:0 10px 28px rgba(46,27,16,.18);
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease,opacity .25s ease;
   }
-  .btn:active{transform:scale(.96)}
-  .btn:disabled{opacity:.55;cursor:default}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(46,27,16,.24)}
+  .btn:active{transform:scale(.92)}
+  .btn:disabled{opacity:.55;cursor:default;transform:none}
   .hint{margin-top:20px;font-size:12px;color:var(--ink-faint);letter-spacing:.08em}
 
   /* typewriter caret */
@@ -100,7 +106,7 @@
     color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;outline:none;
     transition:border-color .3s;
   }
-  textarea:focus{border-color:var(--accent-soft)}
+  textarea:focus{border-color:var(--accent-soft);box-shadow:0 0 0 4px rgba(217,154,78,.16)}
   textarea::placeholder{color:var(--ink-faint)}
   #sent{display:none;margin-top:24px}
   #sent.show{display:block;animation:pop .5s ease}
@@ -109,17 +115,12 @@
   /* floating hearts on tap */
   .float-heart{position:fixed;z-index:15;pointer-events:none;font-size:16px;animation:rise 1.5s ease-out forwards}
   @keyframes rise{
-    0%{opacity:0;transform:translateY(0) scale(.6)}
-    15%{opacity:.9}
-    100%{opacity:0;transform:translateY(-90px) scale(1.1)}
+    0%{opacity:0;transform:translateY(0) scale(.5) rotate(0deg)}
+    18%{opacity:.95;transform:translateY(-24px) scale(1.25) rotate(8deg)}
+    45%{transform:translateY(-52px) scale(.95) rotate(-6deg)}
+    100%{opacity:0;transform:translateY(-115px) scale(1.15) rotate(12deg)}
   }
 
-  #musicToggle{
-    position:fixed;top:14px;right:14px;z-index:18;
-    width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
-    background:rgba(255,253,247,.85);color:var(--ink-dim);font-size:17px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-  }
   .scrolldown{margin-top:40px;color:var(--ink-faint);font-size:11px;letter-spacing:.3em;animation:bob 2.4s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
 
@@ -127,7 +128,11 @@
 
   /* proposal */
   #proposalArea{position:relative;height:250px;margin-top:14px;width:100%;max-width:520px}
-  #yesBtn{margin-top:6px;position:relative;z-index:2}
+  #yesBtn{margin-top:6px;position:relative;z-index:2;animation:yesglow 2.6s ease-in-out infinite}
+  @keyframes yesglow{
+    0%,100%{box-shadow:0 10px 28px rgba(46,27,16,.18)}
+    50%{box-shadow:0 10px 36px rgba(180,100,31,.5)}
+  }
   #noBtn{
     position:absolute;left:50%;top:120px;transform:translateX(-50%);
     padding:12px 36px;border-radius:999px;cursor:pointer;
@@ -136,7 +141,11 @@
     transition:left .28s ease, top .28s ease, transform .28s ease;
     white-space:nowrap;
   }
+  #noBtn.wiggle{animation:nowiggle .45s ease}
+  @keyframes nowiggle{0%,100%{rotate:0deg}25%{rotate:-8deg}55%{rotate:7deg}80%{rotate:-3deg}}
   #plea{min-height:28px;margin-top:8px;font-size:15px;color:var(--rose);font-weight:400}
+  #plea.pleapop{animation:pleapop .45s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes pleapop{0%{transform:scale(.65);opacity:0}100%{transform:scale(1);opacity:1}}
   #yesMsg{display:none}
   #yesMsg.show{display:block;animation:pop .6s ease}
   .burst-heart{position:fixed;z-index:16;pointer-events:none;animation:burst 2.2s ease-out forwards}
@@ -158,9 +167,8 @@
   }
   @keyframes drift{to{transform:translate(4%,-3%) scale(1.07)}}
   #fx{position:fixed;inset:0;z-index:1;pointer-events:none}
-  .chapter .serif.big{animation:floaty 7s ease-in-out infinite}
-  @keyframes floaty{50%{transform:translateY(-7px)}}
-  #ytWrap{position:fixed;left:-10px;top:-10px;width:2px;height:2px;overflow:hidden;opacity:0;pointer-events:none;z-index:0}
+  .chapter .serif.big{animation:floaty 8s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
   .art{display:block;margin:0 auto 18px;animation:artfloat 5s ease-in-out infinite;filter:drop-shadow(0 4px 14px rgba(180,100,31,.25))}
   @keyframes artfloat{50%{transform:translateY(-6px) rotate(-2deg)}}
   #gate .mh{position:absolute;font-size:18px;opacity:0;animation:mhfloat 5.5s ease-in-out infinite;pointer-events:none}
@@ -183,8 +191,6 @@
 <body>
 
 <canvas id="fx"></canvas>
-<div id="ytWrap"><div id="ytPlayer"></div></div>
-<button id="musicToggle" aria-label="music on/off">🔇</button>
 
 <div id="gate">
   <div class="heart">💛</div>
@@ -336,11 +342,11 @@
   /* ---------- floating hearts on tap ---------- */
   var lastHeart = 0;
   document.addEventListener("pointerdown", function(e){
-    if(e.target.closest("button, textarea, .card, #musicToggle")) return;
+    if(e.target.closest("button, textarea, .card")) return;
     var now = Date.now(); if(now - lastHeart < 500) return; lastHeart = now;
     var s = document.createElement("span");
     s.className = "float-heart";
-    s.textContent = ["🤍","💛","🤍"][Math.floor(Math.random()*3)];
+    s.textContent = ["💛","🤍","💕","✨","💖"][Math.floor(Math.random()*5)];
     s.style.left = (e.clientX - 8) + "px";
     s.style.top = (e.clientY - 8) + "px";
     document.body.appendChild(s);
@@ -350,7 +356,7 @@
   /* ---------- floating hearts canvas ---------- */
   var fx = document.getElementById("fx"), fctx = fx.getContext("2d");
   var fp = [], fxOn = false;
-  var ICONS = ["💛","🤍","🌸","💕","🤍","💛"];
+  var ICONS = ["💛","🤍","🌸","💕","✨","💖"];
   function fxSize(){ fx.width = innerWidth; fx.height = innerHeight; }
   fxSize(); addEventListener("resize", fxSize);
   function fxSpawn(anywhere){
@@ -391,150 +397,10 @@
     fxTick();
   }
 
-  /* ---------- music: romantic track, composed fallback ---------- */
-  var YT_ID = "cIuxIBYjwjo"; // verified: Soft Romantic Piano Love Songs (Romantic Piano)
-  var AC=null, master=null, delaySend=null;
-  var ytPlayer=null, ytApiLoading=false;
-  var musicMode=null; // null | 'trying-yt' | 'yt' | 'gen'
-  var wantMusic=false;
-  var genTimer=null, genIx=0, padIx=0;
-  var toggleBtn = document.getElementById("musicToggle");
-
-  function ensureAC(){
-    if(AC) return;
-    AC = new (window.AudioContext || window.webkitAudioContext)();
-    master = AC.createGain(); master.gain.value = .9; master.connect(AC.destination);
-    var delay = AC.createDelay(1); delay.delayTime.value = .48;
-    var fb = AC.createGain(); fb.gain.value = .36;
-    var wet = AC.createGain(); wet.gain.value = .32;
-    delaySend = AC.createGain(); delaySend.gain.value = 1;
-    delaySend.connect(delay); delay.connect(fb); fb.connect(delay);
-    delay.connect(wet); wet.connect(master);
-  }
-  /* composed tender fallback: original music-box lullaby */
-  var MEL = [
-    [329.63,1],[392.00,1],[523.25,2],
-    [493.88,2],[392.00,2],
-    [440.00,1],[392.00,1],[329.63,2],
-    [293.66,3],[0,1],
-    [329.63,1],[392.00,1],[440.00,2],
-    [392.00,2],[329.63,2],
-    [293.66,1],[329.63,1],[261.63,3],
-    [0,2]
-  ];
-  var PADS = [
-    [261.63,329.63,392.00],[196.00,246.94,392.00],
-    [261.63,329.63,392.00],[174.61,220.00,349.23]
-  ];
-  var BEAT = .62;
-  function musicBox(freq, beats){
-    if(!freq) return;
-    var t = AC.currentTime;
-    var o = AC.createOscillator(); o.type="sine"; o.frequency.value=freq;
-    var o2 = AC.createOscillator(); o2.type="triangle"; o2.frequency.value=freq*2;
-    var g = AC.createGain(), g2 = AC.createGain();
-    var dur = beats*BEAT;
-    g.gain.setValueAtTime(.0001, t);
-    g.gain.linearRampToValueAtTime(.06, t+.04);
-    g.gain.exponentialRampToValueAtTime(.0001, t+Math.max(dur*1.6, 2.2));
-    g2.gain.setValueAtTime(.0001, t);
-    g2.gain.linearRampToValueAtTime(.014, t+.04);
-    g2.gain.exponentialRampToValueAtTime(.0001, t+1.6);
-    o.connect(g); g.connect(master); g.connect(delaySend);
-    o2.connect(g2); g2.connect(master);
-    o.start(t); o.stop(t+dur*2+1); o2.start(t); o2.stop(t+2);
-  }
-  function softPad(freqs){
-    var t = AC.currentTime;
-    var g = AC.createGain();
-    g.gain.setValueAtTime(.0001, t);
-    g.gain.linearRampToValueAtTime(.032, t+2.5);
-    g.gain.linearRampToValueAtTime(.0001, t+9);
-    var f = AC.createBiquadFilter(); f.type="lowpass"; f.frequency.value=640;
-    g.connect(f); f.connect(master);
-    freqs.forEach(function(fr){
-      var o = AC.createOscillator(); o.type="triangle"; o.frequency.value=fr;
-      o.detune.value = Math.random()*5-2.5;
-      o.connect(g); o.start(t); o.stop(t+9.5);
-    });
-  }
-  function genStep(){
-    if(musicMode !== 'gen' || !wantMusic) return;
-    var n = MEL[genIx % MEL.length];
-    if(genIx % 8 === 0) softPad(PADS[padIx++ % PADS.length]);
-    musicBox(n[0], n[1]);
-    genIx++;
-    genTimer = setTimeout(genStep, n[1]*BEAT*1000);
-  }
-  function genStart(){
-    if(musicMode === 'gen') return;
-    try{ if(ytPlayer && ytPlayer.stopVideo) ytPlayer.stopVideo(); }catch(e){}
-    musicMode = 'gen';
-    if(AC.state === 'suspended') AC.resume();
-    toggleBtn.textContent = "🔊";
-    genStep();
-  }
-  function ytAttempt(){
-    if(musicMode === 'yt' || musicMode === 'trying-yt') return;
-    if(ytPlayer){ // already have one — just play it
-      musicMode = 'trying-yt';
-      try{ ytPlayer.playVideo(); }catch(e){ genStart(); return; }
-      setTimeout(function(){ if(musicMode!=='yt') genStart(); }, 7000);
-      return;
-    }
-    musicMode = 'trying-yt';
-    function create(){
-      try{
-        ytPlayer = new YT.Player('ytPlayer', {
-          width:'2', height:'2', videoId: YT_ID,
-          playerVars:{autoplay:0, loop:1, playlist:YT_ID, controls:0, disablekb:1, rel:0},
-          events:{
-            onReady: function(e){
-              try{ e.target.setVolume(60); e.target.playVideo(); }catch(err){}
-            },
-            onStateChange: function(e){
-              if(e.data === YT.PlayerState.PLAYING){ musicMode='yt'; toggleBtn.textContent="🔊"; }
-            },
-            onError: function(){ if(musicMode!=='yt') genStart(); }
-          }
-        });
-        try{ ytPlayer.playVideo(); }catch(e){}
-        setTimeout(function(){ if(musicMode!=='yt') genStart(); }, 7000);
-      }catch(e){ genStart(); }
-    }
-    if(window.YT && window.YT.Player){ create(); }
-    else if(!ytApiLoading){
-      ytApiLoading = true;
-      window.onYouTubeIframeAPIReady = function(){ if(wantMusic) create(); };
-      var tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      tag.onerror = function(){ genStart(); };
-      document.head.appendChild(tag);
-      setTimeout(function(){ if(musicMode!=='yt' && musicMode!=='gen') genStart(); }, 9000);
-    }
-  }
-  function setMusic(on){
-    wantMusic = on;
-    if(on){
-      ensureAC();
-      if(AC.state === 'suspended') AC.resume();
-      toggleBtn.textContent = "🔊";
-      ytAttempt();
-    }else{
-      toggleBtn.textContent = "🔇";
-      try{ if(ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); }catch(e){}
-      clearTimeout(genTimer); genTimer = null;
-      if(AC && AC.state === 'running') AC.suspend();
-      if(musicMode === 'gen') musicMode = null;
-    }
-  }
-  toggleBtn.addEventListener("click", function(){ setMusic(!wantMusic); });
-
   /* ---------- gate ---------- */
   document.getElementById("openBtn").addEventListener("click", function(){
     document.getElementById("gate").classList.add("gone");
     startFx();
-    setMusic(true);
     setTimeout(function(){ document.getElementById("c1").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); }, 450);
   });
 
@@ -565,6 +431,8 @@
     noBtn.style.top = y + "px";
     noBtn.style.transform = "none";
     plea.textContent = pleas[pleaIx % pleas.length]; pleaIx++;
+    plea.classList.remove("pleapop"); void plea.offsetWidth; plea.classList.add("pleapop");
+    noBtn.classList.remove("wiggle"); void noBtn.offsetWidth; noBtn.classList.add("wiggle");
     dodges++;
     var s = Math.min(1.35, 1 + dodges * 0.05);
     yesBtn.style.transform = "scale(" + s + ")";
