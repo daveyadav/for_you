@@ -181,7 +181,47 @@
     100%{opacity:0;transform:translateY(-80px) scale(1.1)}
   }
 
+  /* ---------- birthday gift layer ---------- */
+  .gift{position:relative;width:130px;height:112px;margin:0 auto 6px;animation:gshake 2.8s ease-in-out infinite}
+  @keyframes gshake{0%,100%{transform:rotate(0)}18%{transform:rotate(-5deg)}38%{transform:rotate(4deg)}58%{transform:rotate(-2deg)}78%{transform:rotate(0)}}
+  .gift-body{position:absolute;bottom:0;left:15px;width:100px;height:72px;background:linear-gradient(135deg,#c96a5a,#b4641f);border-radius:10px;box-shadow:0 10px 24px rgba(180,100,31,.25)}
+  .gift-body::before{content:"";position:absolute;left:44px;top:0;bottom:0;width:12px;background:rgba(255,253,247,.85)}
+  .gift-lid{position:absolute;top:8px;left:8px;width:114px;height:26px;background:linear-gradient(135deg,#d97f6a,#c06a24);border-radius:8px;transition:transform .7s cubic-bezier(.34,1.56,.64,1),opacity .7s}
+  .gift-lid::before{content:"";position:absolute;left:51px;top:0;bottom:0;width:12px;background:rgba(255,253,247,.85)}
+  .gift-bow{position:absolute;top:-15px;left:50%;transform:translateX(-50%);width:36px;height:22px}
+  .gift-bow::before,.gift-bow::after{content:"";position:absolute;top:0;width:18px;height:18px;border:3px solid #b4641f;border-radius:50%}
+  .gift-bow::before{left:-3px;transform:rotate(-24deg)}
+  .gift-bow::after{right:-3px;transform:rotate(24deg)}
+  .gift.opened{animation:none}
+  .gift.opened .gift-lid{transform:translateY(-52px) rotate(-20deg);opacity:0}
+
+  .cake{margin:34px auto 0;display:flex;flex-direction:column;align-items:center}
+  .candles{display:flex;gap:28px;margin-bottom:-8px;z-index:2}
+  .candle{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:6px 4px}
+  .flame{width:15px;height:24px;margin-bottom:4px;
+    background:radial-gradient(circle at 50% 72%, #fff7cf 0%, #ffd23e 38%, #ff9a2e 68%, #ff6b2e 100%);
+    border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
+    transform-origin:50% 100%;
+    animation:flick .26s ease-in-out infinite alternate;
+    box-shadow:0 0 20px 7px rgba(255,170,60,.5);
+  }
+  @keyframes flick{from{transform:scale(1) rotate(-4deg)}to{transform:scale(1.1,1.22) rotate(4deg)}}
+  .flame.out{animation:flameout .35s ease forwards;box-shadow:none}
+  @keyframes flameout{to{transform:scale(.1);opacity:0}}
+  .smoke{width:7px;height:0;opacity:0;border-radius:4px;background:linear-gradient(rgba(120,110,100,.6),transparent)}
+  .smoke.on{animation:smokeup 1.8s ease-out forwards}
+  @keyframes smokeup{0%{height:10px;opacity:.55}100%{height:48px;opacity:0;transform:translateX(9px)}}
+  .stick{width:11px;height:46px;border-radius:5px;background:repeating-linear-gradient(45deg,#fffdf7 0 6px,#e8a94e 6px 12px);box-shadow:inset -2px 0 3px rgba(0,0,0,.08)}
+  .tier{position:relative}
+  .tier::before{content:"";position:absolute;top:0;left:0;right:0;height:13px;border-radius:12px 12px 6px 6px;background:rgba(255,253,247,.7)}
+  .t1{width:106px;height:44px;border-radius:12px;background:linear-gradient(#cfe3f7,#a9c8ec)}
+  .t2{width:152px;height:54px;border-radius:12px;background:linear-gradient(#f7c9d4,#f0a4b4);margin-top:-3px}
+  .plate{width:192px;height:16px;border-radius:50%;background:#e8d9c0;margin-top:-1px;box-shadow:0 8px 16px rgba(46,27,16,.14)}
+  #bdayWish{display:none}
+  #bdayWish.show{display:block;animation:pop .6s ease}
+
   @media (prefers-reduced-motion: reduce){
+    .gift,.chapter .serif.big,.art{animation:none}
     .reveal{opacity:1;transform:none;transition:none}
     #gate .heart,.scrolldown{animation:none}
     html{scroll-behavior:auto}
@@ -193,6 +233,10 @@
 <canvas id="fx"></canvas>
 
 <div id="gate">
+  <div class="gift" id="giftBox">
+    <div class="gift-lid"><div class="gift-bow"></div></div>
+    <div class="gift-body"></div>
+  </div>
   <div class="heart">💛</div>
   <svg class="art" viewBox="0 0 120 84" width="118" height="82" fill="none" stroke="#b4641f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M60 72 C32 52 18 38 18 26 C18 16 26 9 35 9 C45 9 54 15 60 25 C66 15 75 9 85 9 C94 9 102 16 102 26 C102 38 88 52 60 72 Z"/>
@@ -208,6 +252,30 @@
 </div>
 
 <main>
+  <!-- birthday -->
+  <section class="chapter" id="bday">
+    <div class="kicker reveal">4th november 🎂</div>
+    <div class="serif big reveal d1">happy birthday,<br><span class="hl">sriju.</span></div>
+    <p class="line reveal d2">aja timro din ho — so i made you something.</p>
+    <div class="cake reveal d3">
+      <div class="candles">
+        <div class="candle"><div class="flame"></div><div class="smoke"></div><div class="stick"></div></div>
+        <div class="candle"><div class="flame"></div><div class="smoke"></div><div class="stick"></div></div>
+        <div class="candle"><div class="flame"></div><div class="smoke"></div><div class="stick"></div></div>
+      </div>
+      <div class="tier t1"></div>
+      <div class="tier t2"></div>
+      <div class="plate"></div>
+    </div>
+    <p class="line reveal d3" style="margin-top:28px">euta wish magana... 🤫</p>
+    <button class="btn reveal d4" id="blowBtn" style="margin-top:8px">blow the candles 🌬️</button>
+    <p class="line reveal d4" id="blowNote" style="font-size:13px;margin-top:12px;min-height:22px">mic chaldaina? tap the flames 👆</p>
+    <div id="bdayWish">
+      <div class="serif big" style="margin-top:6px">happy birthday, babe! 🎉</div>
+      <p class="line">may this year give you everything you deserve. 💛</p>
+    </div>
+    <div class="scrolldown reveal d4">scroll ↓</div>
+  </section>
   <!-- 1 · her fear -->
   <section class="chapter" id="c1">
     <div class="kicker reveal">euta kura</div>
@@ -399,10 +467,128 @@
 
   /* ---------- gate ---------- */
   document.getElementById("openBtn").addEventListener("click", function(){
-    document.getElementById("gate").classList.add("gone");
-    startFx();
-    setTimeout(function(){ document.getElementById("c1").scrollIntoView({behavior: reduced ? "auto" : "smooth"}); }, 450);
+    document.getElementById("giftBox").classList.add("opened");
+    setTimeout(function(){
+      document.getElementById("gate").classList.add("gone");
+      startFx();
+      document.getElementById("bday").scrollIntoView({behavior: reduced ? "auto" : "smooth"});
+    }, 800);
   });
+
+  /* ---------- birthday: blow the candles ---------- */
+  var flames = Array.prototype.slice.call(document.querySelectorAll(".flame"));
+  var blown = 0, listening = false;
+  function killFlame(f){
+    if(!f || f.classList.contains("out")) return;
+    f.classList.add("out");
+    var smoke = f.parentElement.querySelector(".smoke");
+    if(smoke){ smoke.classList.remove("on"); void smoke.offsetWidth; smoke.classList.add("on"); }
+    blown++;
+    if(blown >= flames.length) birthdayMoment();
+  }
+  flames.forEach(function(f){
+    f.parentElement.addEventListener("click", function(){ killFlame(f); });
+  });
+  document.getElementById("blowBtn").addEventListener("click", function(){
+    var note = document.getElementById("blowNote");
+    if(blown >= flames.length) return;
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      note.textContent = "mic milena — tap the flames 👆";
+      return;
+    }
+    note.textContent = "listening... blow! 🌬️";
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      listening = true;
+      var AC2 = new (window.AudioContext || window.webkitAudioContext)();
+      if(AC2.state === "suspended") AC2.resume();
+      var src = AC2.createMediaStreamSource(stream);
+      var an = AC2.createAnalyser(); an.fftSize = 1024;
+      src.connect(an);
+      var buf = new Float32Array(an.fftSize);
+      var hot = 0;
+      function stopMic(){
+        listening = false;
+        try{ stream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){}
+        try{ AC2.close(); }catch(e){}
+      }
+      (function check(){
+        if(!listening) return;
+        an.getFloatTimeDomainData(buf);
+        var sum = 0;
+        for(var i=0;i<buf.length;i++) sum += buf[i]*buf[i];
+        var rms = Math.sqrt(sum/buf.length);
+        if(rms > 0.16){ hot++; } else { hot = Math.max(0, hot-2); }
+        if(hot > 12){
+          stopMic();
+          note.textContent = "";
+          flames.filter(function(f){ return !f.classList.contains("out"); })
+                .forEach(function(f, i){ setTimeout(function(){ killFlame(f); }, i*380); });
+          return;
+        }
+        requestAnimationFrame(check);
+      })();
+      setTimeout(function(){
+        if(listening){ stopMic(); note.textContent = "kehi suniyena — tap the flames 👆"; }
+      }, 12000);
+    }).catch(function(){
+      note.textContent = "mic milena — tap the flames 👆";
+    });
+  });
+  function playBirthdaySong(){
+    try{
+      var AC = new (window.AudioContext || window.webkitAudioContext)();
+      if(AC.state === "suspended") AC.resume();
+      var master = AC.createGain(); master.gain.value = .8; master.connect(AC.destination);
+      var delay = AC.createDelay(1); delay.delayTime.value = .42;
+      var fb = AC.createGain(); fb.gain.value = .32;
+      var wet = AC.createGain(); wet.gain.value = .3;
+      delay.connect(fb); fb.connect(delay); delay.connect(wet); wet.connect(master);
+      var seq = [
+        [392.00,.75],[392.00,.25],[440.00,1],[392.00,1],[523.25,1],[493.88,2],
+        [392.00,.75],[392.00,.25],[440.00,1],[392.00,1],[587.33,1],[523.25,2],
+        [392.00,.75],[392.00,.25],[783.99,1],[659.25,1],[523.25,1],[493.88,1],[440.00,1],
+        [698.46,.75],[698.46,.25],[659.25,1],[523.25,1],[587.33,1],[523.25,2.5]
+      ];
+      var BEAT = .44, t = AC.currentTime + .5;
+      seq.forEach(function(n){
+        var o = AC.createOscillator(); o.type = "sine"; o.frequency.value = n[0];
+        var o2 = AC.createOscillator(); o2.type = "triangle"; o2.frequency.value = n[0]*2;
+        var g = AC.createGain(), g2 = AC.createGain();
+        var dur = n[1]*BEAT;
+        g.gain.setValueAtTime(.0001, t);
+        g.gain.linearRampToValueAtTime(.085, t+.05);
+        g.gain.exponentialRampToValueAtTime(.0001, t+Math.max(dur*1.8, 1.8));
+        g2.gain.setValueAtTime(.0001, t);
+        g2.gain.linearRampToValueAtTime(.018, t+.05);
+        g2.gain.exponentialRampToValueAtTime(.0001, t+1.2);
+        o.connect(g); g.connect(master); g.connect(delay);
+        o2.connect(g2); g2.connect(master);
+        o.start(t); o.stop(t+dur*2+1); o2.start(t); o2.stop(t+1.6);
+        t += dur;
+      });
+    }catch(e){}
+  }
+  function birthdayMoment(){
+    var w = document.getElementById("bdayWish");
+    w.classList.add("show");
+    playBirthdaySong();
+    var icons = ["🎉","💛","🎂","✨","💖","🎈"];
+    for(var i=0;i<42;i++){
+      (function(i){
+        setTimeout(function(){
+          var s = document.createElement("span");
+          s.className = "burst-heart";
+          s.textContent = icons[i % icons.length];
+          s.style.fontSize = (14 + Math.random()*20) + "px";
+          s.style.left = (5 + Math.random()*90) + "vw";
+          s.style.top = (48 + Math.random()*42) + "vh";
+          document.body.appendChild(s);
+          setTimeout(function(){ s.remove(); }, 2300);
+        }, i*55);
+      })(i);
+    }
+    setTimeout(function(){ w.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"}); }, 400);
+  }
 
   /* ---------- proposal: the un-clickable no ---------- */
   var area = document.getElementById("proposalArea");
