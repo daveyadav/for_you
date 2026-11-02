@@ -52,7 +52,7 @@
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
 
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1.15s cubic-bezier(.22,.9,.28,1),transform 1.15s cubic-bezier(.22,.9,.28,1)}
+  .reveal{opacity:0;transform:translateY(28px) scale(.97);transition:opacity 1.15s cubic-bezier(.22,.9,.28,1),transform 1.15s cubic-bezier(.22,.9,.28,1)}
   .reveal.visible{opacity:1;transform:none}
   .d1{transition-delay:.12s}.d2{transition-delay:.3s}.d3{transition-delay:.48s}.d4{transition-delay:.66s}
 
@@ -220,6 +220,40 @@
   #bdayWish{display:none}
   #bdayWish.show{display:block;animation:pop .6s ease}
 
+  /* ---------- polish layer: stylish + engaging ---------- */
+  ::selection{background:#f2c078;color:#2e1b10}
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:50;
+    background:linear-gradient(90deg,#b4641f,#d99a4e,#c96a5a);border-radius:0 3px 3px 0}
+  body::after{content:"";position:fixed;inset:0;z-index:44;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E")}
+  .chnum{display:flex;align-items:center;justify-content:center;gap:14px;
+    font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.4em;text-indent:.4em;
+    color:var(--ink-faint);margin-bottom:14px}
+  .chnum::before,.chnum::after{content:"";width:36px;height:1px;background:var(--line)}
+  #glow{display:none}
+  @media (pointer:fine){
+    #glow{display:block;position:fixed;left:0;top:0;width:240px;height:240px;border-radius:50%;
+      pointer-events:none;z-index:1;transform:translate(-50%,-50%);
+      background:radial-gradient(circle,rgba(217,154,78,.20),transparent 70%)}
+  }
+  #loveRange{-webkit-appearance:none;appearance:none;width:100%;max-width:420px;height:8px;border-radius:99px;
+    background:linear-gradient(90deg,#e8d9c0,#d99a4e);outline:none;margin-top:28px;cursor:pointer}
+  #loveRange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#f2c078,#b4641f);border:3px solid #fffdf7;
+    box-shadow:0 4px 14px rgba(180,100,31,.45);cursor:grab}
+  #loveRange::-moz-range-thumb{width:28px;height:28px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#f2c078,#b4641f);border:3px solid #fffdf7;
+    box-shadow:0 4px 14px rgba(180,100,31,.45);cursor:grab}
+  #loveRange:disabled{cursor:default;opacity:.85}
+  .lovelabels{display:flex;justify-content:space-between;width:100%;max-width:420px;margin:10px auto 0;
+    font-size:12px;letter-spacing:.12em;color:var(--ink-faint)}
+  #loveResult{display:none;margin-top:28px}
+  #loveResult.show{display:block;animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
+  #loveResult .big2{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.25;
+    font-size:clamp(42px,10vw,66px);
+    background:linear-gradient(115deg,#b4641f,#d99a4e,#c96a5a);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+
   @media (prefers-reduced-motion: reduce){
     .gift,.chapter .serif.big,.art{animation:none}
     .reveal{opacity:1;transform:none;transition:none}
@@ -231,6 +265,8 @@
 <body>
 
 <canvas id="fx"></canvas>
+<div id="progress"></div>
+<div id="glow"></div>
 
 <div id="gate">
   <div class="gift" id="giftBox">
@@ -254,6 +290,7 @@
 <main>
   <!-- birthday -->
   <section class="chapter" id="bday">
+    <div class="chnum reveal">01</div>
     <div class="kicker reveal">4th november 🎂</div>
     <div class="serif big reveal d1">happy birthday,<br><span class="hl">sriju.</span></div>
     <p class="line reveal d2">aja timro din ho — so i made you something.</p>
@@ -278,6 +315,7 @@
   </section>
   <!-- 1 · her fear -->
   <section class="chapter" id="c1">
+    <div class="chnum reveal">02</div>
     <div class="kicker reveal">euta kura</div>
     <div class="serif med reveal d1">i know timi lai darr lairako cha, babe.("i can say babe hai?")</div>
     <p class="line reveal d2">timi le sochirachau <i>what if</i> maile timi lai hurt gare? <i>what if</i> yo attachment le timi lai pachi jhau garaucha ki?</p>
@@ -288,6 +326,7 @@
 
   <!-- 2 · the promise -->
   <section class="chapter" id="c2">
+    <div class="chnum reveal">03</div>
     <div class="kicker reveal">ahh ani sunana</div>
     <div class="serif big reveal d1"><span id="promiseLine"></span><span class="type-caret" id="promiseCaret" style="display:none"></span></div>
     <p class="line reveal d2">yo impress garna lekheko haina.</p>
@@ -297,6 +336,7 @@
 
   <!-- 3 · real memory -->
   <section class="chapter" id="c3">
+    <div class="chnum reveal">04</div>
     <div class="kicker reveal">ani euta kura</div>
     <div class="serif big reveal d1">timro smell<br>ajhai pani <span style="color:var(--rose)">mero dimag mai cha.</span></div>
     <p class="line reveal d2">kaile kai ta timi yei chau ki kya ho jasto ni lagcha..</p>
@@ -306,6 +346,7 @@
 
   <!-- 4 · serious -->
   <section class="chapter" id="c4">
+    <div class="chnum reveal">05</div>
     <div class="kicker reveal">sriju</div>
     <div class="serif med reveal d1">i'm serious about this.<br>about you. about us.</div>
     <p class="line reveal d2">and, babe.("aba ta banni lagyo hai babe sunna") <span class="hl">i want this - i want this so badly.</span></p>
@@ -317,14 +358,29 @@
 
   <!-- 6 · practical promises -->
   <section class="chapter" id="c6">
+    <div class="chnum reveal">06</div>
     <div class="kicker reveal">Ani arko kura k pani bhanchu bhane</div>
     <p class="line reveal d1">timi lai chaiyeko bela<span class="hl">ma yahi chu.</span> ma yei hunchu, timrai najik ho ni.</p>
     <p class="line reveal d2"><span class="hl">i'll show up.</span> call garchu, time dinchu, kura sunchu. consistently.</p>
     <p class="line reveal d3">tei ho, srijana ("yo naam le bolauda aba kasto sunyo?.."<br><span class="hl">kati bolchu hai mah...</span></p>
   </section>
 
+  <!-- love meter -->
+  <section class="chapter" id="lovemeter">
+    <div class="chnum reveal">07</div>
+    <div class="kicker reveal">euta game</div>
+    <div class="serif med reveal d1">slide gara...<br>how much do you think<br>i love you? 🤔</div>
+    <input type="range" id="loveRange" class="reveal d2" min="0" max="100" value="12" aria-label="how much">
+    <div class="lovelabels reveal d2"><span>ali ali</span><span>dherai</span></div>
+    <div id="loveResult">
+      <div class="big2">♾️💛</div>
+      <p class="line" style="margin-top:14px">nope. it's more.</p>
+    </div>
+  </section>
+
   <!-- proposal -->
   <section class="chapter" id="c-propose">
+    <div class="chnum reveal">08</div>
     <div class="kicker reveal">euta question</div>
     <div class="serif big reveal d1">sriju...<br>will you be <span class="hl">mine?</span> 💛</div>
     <p class="line reveal d2">sochera answer dinu...<br><span style="font-size:13px;color:var(--ink-faint)">(psst — yo ma feri no bhannai na milne wala ho ni , skip if you don't want this laa..)</span></p>
@@ -343,6 +399,7 @@
 
   <!-- 7 · message box -->
   <section class="chapter" id="c7">
+    <div class="chnum reveal">09</div>
     <div class="kicker reveal">aba jada jadai...</div>
     <div class="serif med reveal d1">if i'm not around </div>
     <p class="line reveal d2">kunai pani social media ma available chainau , or just kei bhanna mann lagyo bhane...<br>yaha aayera malai message choddeu la <span class="hl">maile padhchu. promise.</span></p>
@@ -358,6 +415,7 @@
 
   <!-- 8 · closing -->
   <section class="chapter" id="c8">
+    <div class="chnum reveal">10</div>
     <div class="kicker reveal">so...</div>
     <div class="serif big reveal d1">yes.<br><span class="hl">i think am in love.</span><br>with you.</div>
     <p class="line reveal d2" style="margin-top:24px">- you can call me sidhu</p>
@@ -380,6 +438,65 @@
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("visible"); io.unobserve(e.target); } });
   }, {threshold:.18});
   document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+
+  /* ---------- polish: progress, glow, bursts, love meter ---------- */
+  var prog = document.getElementById("progress"), pTick = false;
+  function updProg(){
+    pTick = false;
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop/max)*100 : 0) + "%";
+  }
+  addEventListener("scroll", function(){ if(!pTick){ pTick = true; requestAnimationFrame(updProg); } }, {passive:true});
+  updProg();
+
+  var glow = document.getElementById("glow");
+  if(window.matchMedia && matchMedia("(pointer:fine)").matches){
+    addEventListener("mousemove", function(e){
+      glow.style.left = e.clientX + "px";
+      glow.style.top = e.clientY + "px";
+    }, {passive:true});
+  }
+
+  function burstAt(x, y, n){
+    var icons = ["💛","🤍","💕","✨"];
+    n = n || 8;
+    for(var i=0;i<n;i++){
+      (function(i){
+        setTimeout(function(){
+          var s = document.createElement("span");
+          s.className = "float-heart";
+          s.textContent = icons[i % icons.length];
+          s.style.left = (x - 8 + (Math.random()*64-32)) + "px";
+          s.style.top = (y - 8 + (Math.random()*24-12)) + "px";
+          document.body.appendChild(s);
+          setTimeout(function(){ s.remove(); }, 1600);
+        }, i*45);
+      })(i);
+    }
+  }
+  document.querySelectorAll(".chapter .serif.big, .chapter .serif.med").forEach(function(el){
+    el.style.cursor = "pointer";
+    el.addEventListener("click", function(e){ burstAt(e.clientX, e.clientY, 9); });
+  });
+
+  var loveRange = document.getElementById("loveRange"),
+      loveResult = document.getElementById("loveResult"),
+      loveDone = false;
+  loveRange.addEventListener("input", function(){
+    if(loveDone) return;
+    if(+loveRange.value >= 98){
+      loveDone = true;
+      loveRange.value = 100;
+      loveRange.disabled = true;
+      loveResult.classList.add("show");
+      var r = loveRange.getBoundingClientRect();
+      burstAt(r.left + r.width/2, r.top + r.height/2, 16);
+      setTimeout(function(){
+        loveResult.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"});
+      }, 350);
+    }
+  });
 
   /* ---------- typewriter promise ---------- */
   var promiseText = "timi lai yo kasto lagirako cha yaar?";
