@@ -217,9 +217,12 @@
   .t1{width:106px;height:44px;border-radius:12px;background:linear-gradient(#cfe3f7,#a9c8ec)}
   .t2{width:152px;height:54px;border-radius:12px;background:linear-gradient(#f7c9d4,#f0a4b4);margin-top:-3px}
   .plate{width:192px;height:16px;border-radius:50%;background:#e8d9c0;margin-top:-1px;box-shadow:0 8px 16px rgba(46,27,16,.14)}
-  .realcake{position:relative;max-width:320px;margin:34px auto 0}
-  .realcake img{width:100%;display:block;border-radius:20px;box-shadow:0 18px 50px rgba(150,90,40,.28)}
-  .realcake .candle{position:absolute;width:0;height:0;padding:0;z-index:3}
+  .realcake{position:relative;max-width:250px;margin:30px auto 0}
+  .realcake::before{content:"";position:absolute;inset:-46px -34px;z-index:0;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(255,190,110,.38),rgba(255,190,110,0) 72%)}
+  .realcake img{position:relative;z-index:1;width:100%;display:block;
+    filter:drop-shadow(0 24px 26px rgba(150,90,40,.30))}
+  .realcake .candle{position:absolute;width:0;height:0;padding:0;z-index:2}
   .rc1{left:32%;top:2.9%}.rc2{left:46%;top:3.1%}.rc3{left:60.3%;top:3.2%}
   .realcake .flame{position:absolute;left:-7.5px;bottom:-3px;margin:0}
   .realcake .smoke{position:absolute;left:-3.5px;bottom:0}
@@ -322,7 +325,7 @@
     <div class="serif big reveal d1">happy birthday,<br><span class="hl">sriju.</span></div>
     <p class="line reveal d2">aja timro din ho — so i made you something.</p>
     <div class="realcake reveal d3">
-      <img src="cake.jpg" alt="birthday cake">
+      <img src="cake.webp" alt="birthday cake">
       <div class="candle rc1"><div class="flame"></div><div class="smoke"></div></div>
       <div class="candle rc2"><div class="flame"></div><div class="smoke"></div></div>
       <div class="candle rc3"><div class="flame"></div><div class="smoke"></div></div>
