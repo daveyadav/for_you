@@ -219,6 +219,9 @@
   .plate{width:192px;height:16px;border-radius:50%;background:#e8d9c0;margin-top:-1px;box-shadow:0 8px 16px rgba(46,27,16,.14)}
   #bdayWish{display:none}
   #bdayWish.show{display:block;animation:pop .6s ease}
+  .micdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#e04e4e;
+    margin-right:8px;vertical-align:1px;animation:micpulse 1s ease-in-out infinite}
+  @keyframes micpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.45}}
 
   /* ---------- polish layer: stylish + engaging ---------- */
   ::selection{background:#f2c078;color:#2e1b10}
@@ -302,7 +305,7 @@
   <div class="serif big">i made this<br>for you.</div>
   <p class="line">Ahh ho timrai lagi ho...<br>just me talking to you. honestly.</p>
   <button class="btn" id="openBtn">open 💛</button>
-  <div class="hint">take your time. scroll slowly.</div>
+  <div class="hint">take your time 💛</div>
 </div>
 
 <main>
@@ -323,8 +326,9 @@
       <div class="plate"></div>
     </div>
     <p class="line reveal d3" style="margin-top:28px">euta wish magana... 🤫</p>
+    <p class="line reveal d3" style="font-size:14px">now blow into your phone — like real candles! 💨</p>
     <button class="btn reveal d4" id="blowBtn" style="margin-top:8px">blow the candles 🌬️</button>
-    <p class="line reveal d4" id="blowNote" style="font-size:13px;margin-top:12px;min-height:22px">mic chaldaina? tap the flames 👆</p>
+    <p class="line reveal d4" id="blowNote" style="font-size:13px;margin-top:12px;min-height:22px">tap the button, allow the mic, then blow 💨 · or tap the flames 👆</p>
     <div id="bdayWish">
       <div class="serif big" style="margin-top:6px">happy birthday, babe! 🎉</div>
       <p class="line">may this year give you everything you deserve. 💛</p>
@@ -391,7 +395,7 @@
     <div class="lovelabels reveal d2"><span>ali ali</span><span>dherai</span></div>
     <div id="loveLive" class="reveal d2" style="margin-top:14px;min-height:26px;font-size:15px;color:var(--accent);font-weight:500"></div>
     <div id="loveResult">
-      <div class="big2">♾️💛</div>
+      <div class="big2">∞💛</div>
       <p class="line" style="margin-top:14px">nope. it's more.</p>
     </div>
   </section>
@@ -666,12 +670,15 @@
   });
   document.getElementById("blowBtn").addEventListener("click", function(){
     var note = document.getElementById("blowNote");
+    var btn = document.getElementById("blowBtn");
     if(blown >= flames.length) return;
     if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
       note.textContent = "mic milena — tap the flames 👆";
       return;
     }
-    note.textContent = "listening... blow! 🌬️";
+    btn.disabled = true;
+    btn.textContent = "listening... 🌬️";
+    note.innerHTML = '<span class="micdot"></span>blow now! give it one good blow 💨';
     navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
       listening = true;
       var AC2 = new (window.AudioContext || window.webkitAudioContext)();
@@ -692,21 +699,29 @@
         var sum = 0;
         for(var i=0;i<buf.length;i++) sum += buf[i]*buf[i];
         var rms = Math.sqrt(sum/buf.length);
-        if(rms > 0.16){ hot++; } else { hot = Math.max(0, hot-2); }
-        if(hot > 12){
+        if(rms > 0.14){ hot++; } else { hot = Math.max(0, hot-2); }
+        if(hot > 10){
           stopMic();
           note.textContent = "";
+          btn.style.display = "none";
           flames.filter(function(f){ return !f.classList.contains("out"); })
-                .forEach(function(f, i){ setTimeout(function(){ killFlame(f); }, i*380); });
+                .forEach(function(f, i){ setTimeout(function(){ killFlame(f); }, i*160); });
           return;
         }
         requestAnimationFrame(check);
       })();
       setTimeout(function(){
-        if(listening){ stopMic(); note.textContent = "kehi suniyena — tap the flames 👆"; }
+        if(listening){
+          stopMic();
+          note.textContent = "kehi suniyena — tap the flames 👆";
+          btn.disabled = false;
+          btn.textContent = "blow the candles 🌬️";
+        }
       }, 12000);
     }).catch(function(){
       note.textContent = "mic milena — tap the flames 👆";
+      btn.disabled = false;
+      btn.textContent = "blow the candles 🌬️";
     });
   });
   function playBirthdaySong(){
