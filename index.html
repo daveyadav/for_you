@@ -167,7 +167,7 @@
   }
   @keyframes drift{to{transform:translate(4%,-3%) scale(1.07)}}
   #fx{position:fixed;inset:0;z-index:1;pointer-events:none}
-  .chapter .serif.big{animation:floaty 8s ease-in-out infinite}
+  .chapter .serif.big.visible{animation:floaty 8s ease-in-out 1.4s infinite}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
   .art{display:block;margin:0 auto 18px;animation:artfloat 5s ease-in-out infinite;filter:drop-shadow(0 4px 14px rgba(180,100,31,.25))}
   @keyframes artfloat{50%{transform:translateY(-6px) rotate(-2deg)}}
@@ -237,13 +237,13 @@
       background:radial-gradient(circle,rgba(217,154,78,.20),transparent 70%)}
   }
   #loveRange{-webkit-appearance:none;appearance:none;width:100%;max-width:420px;height:8px;border-radius:99px;
-    background:linear-gradient(90deg,#e8d9c0,#d99a4e);outline:none;margin-top:28px;cursor:pointer}
+    background:linear-gradient(90deg,#d99a4e var(--fill,12%),#e8d9c0 var(--fill,12%));outline:none;margin-top:28px;cursor:pointer}
   #loveRange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;border-radius:50%;
     background:radial-gradient(circle at 35% 30%,#f2c078,#b4641f);border:3px solid #fffdf7;
-    box-shadow:0 4px 14px rgba(180,100,31,.45);cursor:grab}
+    box-shadow:0 4px 14px rgba(180,100,31,.45);cursor:grab;transform:scale(var(--ts,.9))}
   #loveRange::-moz-range-thumb{width:28px;height:28px;border-radius:50%;
     background:radial-gradient(circle at 35% 30%,#f2c078,#b4641f);border:3px solid #fffdf7;
-    box-shadow:0 4px 14px rgba(180,100,31,.45);cursor:grab}
+    box-shadow:0 4px 14px rgba(180,100,31,.45);cursor:grab;transform:scale(var(--ts,.9))}
   #loveRange:disabled{cursor:default;opacity:.85}
   .lovelabels{display:flex;justify-content:space-between;width:100%;max-width:420px;margin:10px auto 0;
     font-size:12px;letter-spacing:.12em;color:var(--ink-faint)}
@@ -253,6 +253,25 @@
     font-size:clamp(42px,10vw,66px);
     background:linear-gradient(115deg,#b4641f,#d99a4e,#c96a5a);
     -webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* ---------- chapter peaks: each chapter its own moment ---------- */
+  .kicker.long{text-transform:none;letter-spacing:.1em;font-size:13px}
+  #c1 .d2{font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:clamp(20px,5.6vw,29px);color:var(--ink);line-height:1.55}
+  #c4 .hl{display:inline-block;animation:heartbeat 2.4s ease-in-out infinite}
+  @keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.09)}28%{transform:scale(1)}42%{transform:scale(1.09)}56%{transform:scale(1)}}
+  #c8 .big.visible{animation:floaty 8s ease-in-out 1.4s infinite,glowpulse 3.4s ease-in-out infinite}
+  @keyframes glowpulse{0%,100%{text-shadow:0 0 0 rgba(217,154,78,0)}50%{text-shadow:0 0 36px rgba(217,154,78,.5)}}
+  #c3{position:relative;overflow:hidden}
+  .wisp{position:absolute;width:130px;height:130px;border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle,rgba(217,154,78,.17),transparent 70%);filter:blur(6px);
+    animation:wispdrift 9s ease-in-out infinite}
+  @keyframes wispdrift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(36px,-48px) scale(1.28)}}
+  .vowcheck{display:inline-block;vertical-align:-5px;margin-right:10px;width:24px;height:24px}
+  .vowcheck path{stroke:var(--accent);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:30;stroke-dashoffset:30}
+  .visible .vowcheck path{animation:drawcheck .7s ease .35s forwards}
+  @keyframes drawcheck{to{stroke-dashoffset:0}}
 
   @media (prefers-reduced-motion: reduce){
     .gift,.chapter .serif.big,.art{animation:none}
@@ -273,8 +292,7 @@
     <div class="gift-lid"><div class="gift-bow"></div></div>
     <div class="gift-body"></div>
   </div>
-  <div class="heart">💛</div>
-  <svg class="art" viewBox="0 0 120 84" width="118" height="82" fill="none" stroke="#b4641f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <svg class="art" viewBox="0 0 120 84" width="96" height="67" fill="none" stroke="#b4641f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M60 72 C32 52 18 38 18 26 C18 16 26 9 35 9 C45 9 54 15 60 25 C66 15 75 9 85 9 C94 9 102 16 102 26 C102 38 88 52 60 72 Z"/>
     <path d="M28 18 l0 8 M24 22 l8 0" stroke-width="2"/>
     <path d="M94 52 l0 7 M90.5 55.5 l7 0" stroke-width="2"/>
@@ -311,7 +329,6 @@
       <div class="serif big" style="margin-top:6px">happy birthday, babe! 🎉</div>
       <p class="line">may this year give you everything you deserve. 💛</p>
     </div>
-    <div class="scrolldown reveal d4">scroll ↓</div>
   </section>
   <!-- 1 · her fear -->
   <section class="chapter" id="c1">
@@ -370,8 +387,9 @@
     <div class="chnum reveal">07</div>
     <div class="kicker reveal">euta game</div>
     <div class="serif med reveal d1">slide gara...<br>how much do you think<br>i love you? 🤔</div>
-    <input type="range" id="loveRange" class="reveal d2" min="0" max="100" value="12" aria-label="how much">
+    <input type="range" id="loveRange" class="reveal d2" min="0" max="100" value="12" style="--fill:12%" aria-label="how much">
     <div class="lovelabels reveal d2"><span>ali ali</span><span>dherai</span></div>
+    <div id="loveLive" class="reveal d2" style="margin-top:14px;min-height:26px;font-size:15px;color:var(--accent);font-weight:500"></div>
     <div id="loveResult">
       <div class="big2">♾️💛</div>
       <p class="line" style="margin-top:14px">nope. it's more.</p>
@@ -482,20 +500,60 @@
 
   var loveRange = document.getElementById("loveRange"),
       loveResult = document.getElementById("loveResult"),
+      loveLive = document.getElementById("loveLive"),
       loveDone = false;
+  var loveMsgs = [[30,"ali ali... 😌"],[60,"hmm, badhdai cha... 👀"],[90,"almost there... 💛"],[98,"aali more! 🔥"]];
   loveRange.addEventListener("input", function(){
     if(loveDone) return;
-    if(+loveRange.value >= 98){
+    var v = +loveRange.value;
+    loveRange.style.setProperty("--fill", v + "%");
+    loveRange.style.setProperty("--ts", (0.8 + v/140).toFixed(2));
+    var msg = "";
+    for(var i=0;i<loveMsgs.length;i++){ if(v >= loveMsgs[i][0]) msg = loveMsgs[i][1]; }
+    loveLive.textContent = msg;
+    if(Math.random() < .55){
+      var r = loveRange.getBoundingClientRect();
+      burstAt(r.left + r.width*(v/100), r.top, 2);
+    }
+    if(v >= 98){
       loveDone = true;
       loveRange.value = 100;
+      loveRange.style.setProperty("--fill", "100%");
       loveRange.disabled = true;
+      loveLive.textContent = "";
       loveResult.classList.add("show");
-      var r = loveRange.getBoundingClientRect();
-      burstAt(r.left + r.width/2, r.top + r.height/2, 16);
+      var r2 = loveRange.getBoundingClientRect();
+      burstAt(r2.left + r2.width/2, r2.top + r2.height/2, 18);
       setTimeout(function(){
         loveResult.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"});
       }, 350);
     }
+  });
+
+  /* ---------- chapter peaks: behavior ---------- */
+  document.querySelectorAll(".kicker").forEach(function(k){
+    if(k.textContent.trim().length > 20) k.classList.add("long");
+  });
+  (function(){
+    var c3 = document.getElementById("c3");
+    if(c3 && !reduced){
+      [["10%","20%","0s"],["66%","28%","2.6s"],["40%","62%","5.2s"]].forEach(function(pos){
+        var w = document.createElement("div");
+        w.className = "wisp";
+        w.style.left = pos[0]; w.style.top = pos[1]; w.style.animationDelay = pos[2];
+        c3.appendChild(w);
+      });
+    }
+  })();
+  document.querySelectorAll("#c6 .line").forEach(function(p){
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("class", "vowcheck");
+    svg.setAttribute("aria-hidden", "true");
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M4 12.5 L9.5 18 L20 6.5");
+    svg.appendChild(path);
+    p.insertBefore(svg, p.firstChild);
   });
 
   /* ---------- typewriter promise ---------- */
