@@ -36,16 +36,16 @@
   .chapter{
     min-height:100svh;
     display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;padding:11vh 24px;max-width:620px;margin:0 auto;
+    text-align:center;padding:7vh 24px;max-width:620px;margin:0 auto;
   }
   .kicker{
     font-size:11px;letter-spacing:.32em;text-transform:uppercase;
-    color:var(--accent);margin-bottom:24px;font-weight:500;
+    color:var(--accent);margin-bottom:18px;font-weight:500;
   }
   .serif{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.35;color:var(--ink)}
-  .big{font-size:clamp(34px,8.5vw,56px);margin-bottom:20px}
-  .med{font-size:clamp(22px,5.5vw,30px);margin-bottom:16px}
-  p.line{font-size:clamp(16px,4.4vw,18px);color:var(--ink-dim);margin-bottom:15px;max-width:33em}
+  .big{font-size:clamp(34px,8.5vw,56px);margin-bottom:16px}
+  .med{font-size:clamp(22px,5.5vw,30px);margin-bottom:14px}
+  p.line{font-size:clamp(16px,4.4vw,18px);color:var(--ink-dim);margin-bottom:13px;max-width:33em}
   p.line .hl, .serif .hl{
     font-weight:600;
     background:linear-gradient(115deg,#b4641f 10%,#d99a4e 45%,#c96a5a 90%);
@@ -99,7 +99,7 @@
   @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
   /* message box */
-  .msgbox{width:100%;max-width:520px;margin-top:28px}
+  .msgbox{width:100%;max-width:520px;margin-top:22px}
   textarea{
     width:100%;min-height:120px;resize:vertical;border-radius:14px;padding:15px 16px;
     background:var(--paper2);border:1px solid var(--line);
@@ -121,7 +121,7 @@
     100%{opacity:0;transform:translateY(-115px) scale(1.15) rotate(12deg)}
   }
 
-  .scrolldown{margin-top:40px;color:var(--ink-faint);font-size:11px;letter-spacing:.3em;animation:bob 2.4s ease-in-out infinite}
+  .scrolldown{margin-top:32px;color:var(--ink-faint);font-size:11px;letter-spacing:.3em;animation:bob 2.4s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
 
   .divider{width:44px;height:1px;background:var(--line);margin:0 auto}
@@ -217,7 +217,7 @@
   .t1{width:106px;height:44px;border-radius:12px;background:linear-gradient(#cfe3f7,#a9c8ec)}
   .t2{width:152px;height:54px;border-radius:12px;background:linear-gradient(#f7c9d4,#f0a4b4);margin-top:-3px}
   .plate{width:192px;height:16px;border-radius:50%;background:#e8d9c0;margin-top:-1px;box-shadow:0 8px 16px rgba(46,27,16,.14)}
-  .realcake{position:relative;max-width:220px;margin:30px auto 0}
+  .realcake{position:relative;max-width:220px;margin:24px auto 0}
   .realcake::before{content:"";position:absolute;inset:-46px -34px;z-index:0;pointer-events:none;
     background:radial-gradient(closest-side,rgba(255,190,110,.38),rgba(255,190,110,0) 72%)}
   .realcake img{position:relative;z-index:1;width:100%;display:block;
@@ -249,7 +249,7 @@
       background:radial-gradient(circle,rgba(217,154,78,.20),transparent 70%)}
   }
   #loveRange{-webkit-appearance:none;appearance:none;width:100%;max-width:420px;height:8px;border-radius:99px;
-    background:linear-gradient(90deg,#d99a4e var(--fill,12%),#e8d9c0 var(--fill,12%));outline:none;margin-top:28px;cursor:pointer}
+    background:linear-gradient(90deg,#d99a4e var(--fill,12%),#e8d9c0 var(--fill,12%));outline:none;margin-top:22px;cursor:pointer}
   #loveRange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;border-radius:50%;
     background:radial-gradient(circle at 35% 30%,#f2c078,#b4641f);border:3px solid #fffdf7;
     box-shadow:0 4px 14px rgba(180,100,31,.45);cursor:grab;transform:scale(var(--ts,.9))}
@@ -259,7 +259,7 @@
   #loveRange:disabled{cursor:default;opacity:.85}
   .lovelabels{display:flex;justify-content:space-between;width:100%;max-width:420px;margin:10px auto 0;
     font-size:12px;letter-spacing:.12em;color:var(--ink-faint)}
-  #loveResult{display:none;margin-top:28px}
+  #loveResult{display:none;margin-top:22px}
   #loveResult.show{display:block;animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
   #loveResult .big2{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.25;
     font-size:clamp(42px,10vw,66px);
